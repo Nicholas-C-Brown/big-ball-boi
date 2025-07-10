@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://bd7x563fbqn5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mwb40"]
+size = Vector2(499, 20)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_80nbo"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Ground" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground"]
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_mwb40")
+
+[node name="Sprite2D" type="Sprite2D" parent="Ground"]
+scale = Vector2(500, 20)
+texture = SubResource("PlaceholderTexture2D_80nbo")
+
+[node name="Camera2D" type="Camera2D" parent="."]
