@@ -20,6 +20,9 @@ public partial class Idle : PlayerState
 
     public override State? ProcessPhysics(float delta)
     {
+
+        ApplyDeceleration(delta);
+
         //Handle this in the physics process to avoid a bug where
         //the movement input event is consumed before the unhandled input call
         if (_movementComponent.GetMovement() != 0)

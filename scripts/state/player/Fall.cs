@@ -11,6 +11,8 @@ public partial class Fall : PlayerState
     {
         ApplyGravity(delta);
         ApplyMovement(delta);
+        HandleSpriteFlip();
+
         _parent.MoveAndSlide();
 
         if (_parent.IsOnFloor())

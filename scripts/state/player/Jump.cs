@@ -18,6 +18,8 @@ public partial class Jump : PlayerState
     {
         ApplyGravity(delta);
         ApplyMovement(delta);
+        HandleSpriteFlip();
+
         _parent.MoveAndSlide();
 
         if (_parent.Velocity.Y > 0)

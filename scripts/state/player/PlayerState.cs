@@ -2,19 +2,17 @@
 using Godot;
 using System;
 
-public partial class PlayerState : State
+public abstract partial class PlayerState : AnimatableState
 {
 
     protected Vector2 gravity = new Vector2(0, ProjectSettings.GetSetting("physics/2d/default_gravity").As<float>());
 
-    [Export] protected String? animationName;
-
-    protected CharacterBody2D _parent;
+    protected Player _parent;
     protected IMovementComponent _movementComponent;
 
     public override void Initialize()
     {
-        _parent = ComponentProvider.GetParentComponent<CharacterBody2D>();
+        _parent = ComponentProvider.GetParentComponent<Player>();
         _movementComponent = ComponentProvider.GetRequiredComponent<IMovementComponent>();
     }
 
@@ -28,9 +26,9 @@ public partial class PlayerState : State
         float movement = _movementComponent.GetMovement();
 
         //Decelerate if the player is not moving
-        if (movement == 0) {
-            float horizontalVelocity = Mathf.Lerp(_parent.Velocity.X, 0, _movementComponent.GetDecelerationForce() * delta);
-            _parent.Velocity = new Vector2(horizontalVelocity, _parent.Velocity.Y);
+        if (movement == 0)
+        {
+            ApplyDeceleration(delta);
             return;
         }
 
@@ -42,6 +40,25 @@ public partial class PlayerState : State
         float clampedVelocity = Mathf.Clamp(unclampedVelocity, -maxMovementSpeed, maxMovementSpeed);
 
         _parent.Velocity = new Vector2(clampedVelocity, _parent.Velocity.Y);
+    }
+
+    protected void ApplyDeceleration(float delta)
+    {
+        float horizontalVelocity = Mathf.Lerp(_parent.Velocity.X, 0, _movementComponent.GetDecelerationForce() * delta);
+        _parent.Velocity = new Vector2(horizontalVelocity, _parent.Velocity.Y);
+    }
+
+    protected void HandleSpriteFlip()
+    {
+        if (_parent.Velocity.X < 0)
+        {
+            _animationComponent.FlipH = true;
+        }
+
+        if (_parent.Velocity.X > 0)
+        {
+            _animationComponent.FlipH = false;
+        }
     }
 
 }

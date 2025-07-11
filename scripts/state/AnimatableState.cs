@@ -1,18 +1,20 @@
 using Godot;
 using System;
 
-public partial class AnimatableState : State
+public abstract partial class AnimatableState : State
 {
 
     [Export] protected String? animationName;
 
+    [Export] protected AnimatedSprite2D _animationComponent;
+
     public override void Enter()
     {
-        AnimatedSprite2D? animationComponent = ComponentProvider.GetOptionalComponent<AnimatedSprite2D>();
+        _animationComponent = ComponentProvider.GetRequiredComponent<AnimatedSprite2D>();
 
         if (animationName != null)
         {
-            animationComponent?.Play(animationName);
+            _animationComponent?.Play(animationName);
         }
     }
 

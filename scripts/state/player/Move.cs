@@ -18,6 +18,16 @@ public partial class Move : PlayerState
         return null;
     }
 
+    public override State? ProcessFrame(float delta)
+    {
+        HandleSpriteFlip();
+
+        float minimumMoveAnimationSpeed = 0.6f;
+        _animationComponent.SpeedScale = Mathf.Clamp(_parent.Velocity.X / _movementComponent.GetMaxMovementSpeed(), minimumMoveAnimationSpeed, 1);
+
+        return null;
+    }
+
     public override State? ProcessPhysics(float delta)
     {
         
@@ -26,7 +36,8 @@ public partial class Move : PlayerState
         
         _parent.MoveAndSlide();
 
-        if (_parent.Velocity == Vector2.Zero)
+        int idleThreshold = 10;
+        if (Mathf.Abs(_parent.Velocity.X) < idleThreshold && _movementComponent.GetMovement() == 0)
         {
             return idleState;
         }
@@ -37,6 +48,11 @@ public partial class Move : PlayerState
         }
 
         return null;
+    }
+
+    public override void Exit()
+    {
+        _animationComponent.SpeedScale = 1;
     }
 
 }
