@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bustllrpo6t2p"]
+[gd_scene load_steps=11 format=3 uid="uid://bustllrpo6t2p"]
 
 [ext_resource type="Texture2D" uid="uid://cocdfjogfwpjj" path="res://sprites/Traps/Spiked Ball/Spiked Ball.png" id="1_3vyb7"]
 [ext_resource type="Script" uid="uid://dfwpxp14erf15" path="res://scripts/Player.cs" id="1_g2els"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://7i84oi445gba" path="res://scripts/state/player/Fall.cs" id="6_smehm"]
 [ext_resource type="Script" uid="uid://bl5tlu7pir3ym" path="res://scripts/state/player/Move.cs" id="7_ur7pv"]
 [ext_resource type="Script" uid="uid://c23d32drqcnnj" path="res://scripts/state/player/Jump.cs" id="8_y4r1p"]
+[ext_resource type="Script" uid="uid://co1v0io6spwng" path="res://scripts/component/movement/PlayerMovementComponent.cs" id="9_ur7pv"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3vyb7"]
 radius = 9.0
@@ -25,8 +26,8 @@ position = Vector2(-0.25, -0.25)
 scale = Vector2(0.946429, 0.946429)
 texture = ExtResource("1_3vyb7")
 
-[node name="ComponentProvider" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("4_qlg0r")]
-parent = NodePath("..")
+[node name="ComponentProvider" parent="." node_paths=PackedStringArray("components") instance=ExtResource("4_qlg0r")]
+components = [NodePath("../MovementComponent")]
 
 [node name="StateMachine" parent="." node_paths=PackedStringArray("startingState") instance=ExtResource("3_dqkch")]
 startingState = NodePath("Idle")
@@ -57,3 +58,7 @@ idleState = NodePath("../Idle")
 moveState = NodePath("../Move")
 fallState = NodePath("../Fall")
 animationName = "jump"
+
+[node name="MovementComponent" type="Node" parent="."]
+script = ExtResource("9_ur7pv")
+movementForce = 300.0

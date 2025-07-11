@@ -9,11 +9,18 @@ public partial class ComponentProvider : Node
     //Components
     [Export] private Node[] components;
 
+    private Node? parent;
+
     public T GetParentComponent<T>()
     {
-        Node parent = GetParent();
-        ArgumentNullException.ThrowIfNull(parent);
 
+        if (parent == null)
+        {
+            parent = GetParent();
+        }
+
+        ArgumentNullException.ThrowIfNull(parent);
+        
         if(parent is T parentComponent)
         {
             return parentComponent;

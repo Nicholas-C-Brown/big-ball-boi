@@ -1,33 +1,21 @@
 using Godot;
 using System;
 
-public partial class Fall : State
+public partial class Fall : PlayerState
 {
 
     [Export] private State idleState;
     [Export] private State moveState;
 
-    private CharacterBody2D _parent;
-
-    public override void Initialize()
-    {
-        _parent = ComponentProvider.GetParentComponent<CharacterBody2D>();
-    }
-
     public override State? ProcessPhysics(float delta)
     {
-        _parent.Velocity += gravity * delta;
-     
-        //Movement
-        float movement = Input.GetAxis("move_left", "move_right");
-        _parent.Velocity = new Vector2(movement * 100f, _parent.Velocity.Y);
-
+        ApplyGravity(delta);
+        ApplyMovement(delta);
         _parent.MoveAndSlide();
-
 
         if (_parent.IsOnFloor())
         {
-            return movement == 0 ? idleState : moveState;
+            return _parent.Velocity.X == 0 ? idleState : moveState;
         }
 
         return null;

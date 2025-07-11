@@ -4,11 +4,6 @@ using System;
 public abstract partial class State : Node
 {
 
-    [Export]
-    protected String? animationName;
-
-    protected Vector2 gravity = new Vector2(0, ProjectSettings.GetSetting("physics/2d/default_gravity").As<float>());
-
     public ComponentProvider ComponentProvider { get; set; }
 
     /// <summary>
@@ -26,11 +21,7 @@ public abstract partial class State : Node
     /// </summary>
     public virtual void Enter()
     {
-        AnimatedSprite2D? animationComponent = ComponentProvider.GetOptionalComponent<AnimatedSprite2D>();
-
-        if (animationName != null) {
-            animationComponent?.Play( animationName );
-        }
+     
     }
 
     /// <summary>

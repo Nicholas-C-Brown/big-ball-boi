@@ -1,43 +1,32 @@
 using Godot;
 using System;
 
-public partial class Idle : State
+public partial class Idle : PlayerState
 {
 
     [Export] private State moveState;
     [Export] private State jumpState;
     [Export] private State fallState;
 
-    private CharacterBody2D _parent;
-
-    public override void Initialize()
-    {
-        _parent = ComponentProvider.GetParentComponent<CharacterBody2D>();
-    }
-
-    public override void Enter()
-    {
-        base.Enter();
-        _parent.Velocity = Vector2.Zero;
-    }
-
     public override State? ProcessInput(InputEvent input)
     {
-        if(Input.GetAxis("move_left", "move_right") != 0)
-        {
-            return moveState;
-        }
-        if(Input.IsActionJustPressed("jump"))
+        if(_movementComponent.WantsToJump())
         {
             return jumpState;
         }
 
         return null;
-    }
+    } 
 
     public override State? ProcessPhysics(float delta)
     {
-        _parent.Velocity += gravity * delta;
+        //Handle this in the physics process to avoid a bug where
+        //the movement input event is consumed before the unhandled input call
+        if (_movementComponent.GetMovement() != 0)
+        {
+            return moveState;
+        }
+
         _parent.MoveAndSlide();
 
         if (!_parent.IsOnFloor())
