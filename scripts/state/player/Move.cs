@@ -22,8 +22,12 @@ public partial class Move : PlayerState
     {
         HandleSpriteFlip();
 
+        float absoluteHorizontalVelocity = Mathf.Abs(_parent.Velocity.X);
+        float maxMovementSpeed = _movementComponent.GetMaxMovementSpeed();
+        float speedScaleFactor = absoluteHorizontalVelocity / maxMovementSpeed;
+
         float minimumMoveAnimationSpeed = 0.6f;
-        _animationComponent.SpeedScale = Mathf.Clamp(_parent.Velocity.X / _movementComponent.GetMaxMovementSpeed(), minimumMoveAnimationSpeed, 1);
+        _animationComponent.SpeedScale = Mathf.Clamp(speedScaleFactor, minimumMoveAnimationSpeed, 1);
 
         return null;
     }
