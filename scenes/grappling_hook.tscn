@@ -1,19 +1,29 @@
-[gd_scene load_steps=6 format=3 uid="uid://b3hmnvswpq82f"]
+[gd_scene load_steps=11 format=3 uid="uid://b3hmnvswpq82f"]
 
 [ext_resource type="Texture2D" uid="uid://bxx3cla58wlps" path="res://sprites/Traps/Spikes/Idle.png" id="1_psnef"]
+[ext_resource type="Script" uid="uid://bgc8j08ifn318" path="res://scripts/GrapplingHook.cs" id="1_q31ol"]
 [ext_resource type="Texture2D" uid="uid://crfbxcaraetkj" path="res://sprites/Traps/Spiked Ball/Chain.png" id="2_fdaym"]
 [ext_resource type="PackedScene" uid="uid://doscj1n833bia" path="res://scenes/state_machine.tscn" id="3_ko2m5"]
 [ext_resource type="PackedScene" uid="uid://u7sgttsf4yev" path="res://scenes/component_provider.tscn" id="4_q31ol"]
+[ext_resource type="Script" uid="uid://c2kqelndcjo0k" path="res://scripts/state/grappling_hook/Aiming.cs" id="5_ty4s7"]
+[ext_resource type="Script" uid="uid://cpqsihjbo5tqd" path="res://scripts/state/grappling_hook/Extending.cs" id="6_g2wdh"]
+[ext_resource type="Script" uid="uid://b71g7xddpuo7u" path="res://scripts/state/grappling_hook/Retracting.cs" id="7_3kvop"]
+[ext_resource type="Script" uid="uid://c2ci48bfdgso5" path="res://scripts/state/grappling_hook/Hooked.cs" id="8_myvdc"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_nhcqx"]
-radius = 5.0
+radius = 5.09902
 
 [node name="GrapplingHook" type="Node2D"]
+script = ExtResource("1_q31ol")
 
 [node name="HookPoint" type="Area2D" parent="."]
-position = Vector2(0, -14)
+z_index = 1
+position = Vector2(14, 0)
+collision_layer = 2
 
 [node name="Sprite2D" type="Sprite2D" parent="HookPoint"]
+rotation = 1.5708
+scale = Vector2(1.3, 1.3)
 texture = ExtResource("1_psnef")
 region_enabled = true
 region_rect = Rect2(0, 9, 7, 7)
@@ -21,12 +31,32 @@ region_rect = Rect2(0, 9, 7, 7)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HookPoint"]
 shape = SubResource("CircleShape2D_nhcqx")
 
-[node name="Line2D" type="Line2D" parent="."]
+[node name="HookLine" type="Line2D" parent="."]
 texture_repeat = 2
+width = 5.0
 texture = ExtResource("2_fdaym")
 texture_mode = 1
 
-[node name="StateMachine" parent="." instance=ExtResource("3_ko2m5")]
+[node name="StateMachine" parent="." node_paths=PackedStringArray("startingState") instance=ExtResource("3_ko2m5")]
+startingState = NodePath("Aiming")
 
-[node name="ComponentProvider" parent="." node_paths=PackedStringArray("components") instance=ExtResource("4_q31ol")]
-components = [NodePath("../HookPoint"), NodePath("../Line2D")]
+[node name="Aiming" type="Node" parent="StateMachine" node_paths=PackedStringArray("extendState")]
+script = ExtResource("5_ty4s7")
+extendState = NodePath("../Extending")
+
+[node name="Extending" type="Node" parent="StateMachine" node_paths=PackedStringArray("hookedState", "retractState")]
+script = ExtResource("6_g2wdh")
+hookedState = NodePath("../Hooked")
+retractState = NodePath("../Retracting")
+hookDistance = 200.0
+
+[node name="Retracting" type="Node" parent="StateMachine" node_paths=PackedStringArray("aimState")]
+script = ExtResource("7_3kvop")
+aimState = NodePath("../Aiming")
+retractSpeed = 15.0
+
+[node name="Hooked" type="Node" parent="StateMachine" node_paths=PackedStringArray("retractState")]
+script = ExtResource("8_myvdc")
+retractState = NodePath("../Retracting")
+
+[node name="ComponentProvider" parent="." instance=ExtResource("4_q31ol")]
