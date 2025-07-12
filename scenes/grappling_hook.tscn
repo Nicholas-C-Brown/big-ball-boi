@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=3 uid="uid://b3hmnvswpq82f"]
+
+[ext_resource type="Texture2D" uid="uid://bxx3cla58wlps" path="res://sprites/Traps/Spikes/Idle.png" id="1_psnef"]
+[ext_resource type="Texture2D" uid="uid://crfbxcaraetkj" path="res://sprites/Traps/Spiked Ball/Chain.png" id="2_fdaym"]
+[ext_resource type="PackedScene" uid="uid://doscj1n833bia" path="res://scenes/state_machine.tscn" id="3_ko2m5"]
+[ext_resource type="PackedScene" uid="uid://u7sgttsf4yev" path="res://scenes/component_provider.tscn" id="4_q31ol"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_nhcqx"]
+radius = 5.0
+
+[node name="GrapplingHook" type="Node2D"]
+
+[node name="HookPoint" type="Area2D" parent="."]
+position = Vector2(0, -14)
+
+[node name="Sprite2D" type="Sprite2D" parent="HookPoint"]
+texture = ExtResource("1_psnef")
+region_enabled = true
+region_rect = Rect2(0, 9, 7, 7)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HookPoint"]
+shape = SubResource("CircleShape2D_nhcqx")
+
+[node name="Line2D" type="Line2D" parent="."]
+texture_repeat = 2
+texture = ExtResource("2_fdaym")
+texture_mode = 1
+
+[node name="StateMachine" parent="." instance=ExtResource("3_ko2m5")]
+
+[node name="ComponentProvider" parent="." node_paths=PackedStringArray("components") instance=ExtResource("4_q31ol")]
+components = [NodePath("../HookPoint"), NodePath("../Line2D")]

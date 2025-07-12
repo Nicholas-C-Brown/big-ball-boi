@@ -3,11 +3,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-/// <summary>
-/// Node component for handling object states
-/// </summary>
-public partial class StateMachine : Node
+
+namespace BigBallBoiGame.State
 {
+
+    /// <summary>
+    /// Node component for handling object states
+    /// </summary>
+    public partial class StateMachine : Node
+    {
 
     [Export]
     private State startingState;
@@ -52,10 +56,10 @@ public partial class StateMachine : Node
     }
 
     /// <summary>
-	/// Pass through function for _UnhandledInput().<br/>
-	/// Handles state changes as needed.
-	/// </summary>
-	/// <param name="input">Input event</param>
+    /// Pass through function for _UnhandledInput().<br/>
+    /// Handles state changes as needed.
+    /// </summary>
+    /// <param name="input">Input event</param>
     public void ProcessInput(InputEvent input)
     {
 
@@ -94,6 +98,8 @@ public partial class StateMachine : Node
         {
             ChangeState(newState);
         }
+    }
+
     }
 
 }

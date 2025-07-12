@@ -1,21 +1,26 @@
 using Godot;
 using System;
 
-public abstract partial class AnimatableState : State
+namespace BigBallBoiGame.State
 {
 
-    [Export] protected String? animationName;
-
-    [Export] protected AnimatedSprite2D _animationComponent;
-
-    public override void Enter()
+    public abstract partial class AnimatableState : State
     {
-        _animationComponent = ComponentProvider.GetRequiredComponent<AnimatedSprite2D>();
 
-        if (animationName != null)
+        [Export] protected String? animationName;
+
+        [Export] protected AnimatedSprite2D _animationComponent;
+
+        public override void Enter()
         {
-            _animationComponent?.Play(animationName);
+            _animationComponent = ComponentProvider.GetRequiredComponent<AnimatedSprite2D>();
+
+            if (animationName != null)
+            {
+                _animationComponent?.Play(animationName);
+            }
         }
+
     }
 
 }

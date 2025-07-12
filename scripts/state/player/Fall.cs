@@ -1,26 +1,31 @@
 using Godot;
 using System;
 
-public partial class Fall : PlayerState
+namespace BigBallBoiGame.State.PlayerStates
 {
 
-    [Export] private State idleState;
-    [Export] private State moveState;
-
-    public override State? ProcessPhysics(float delta)
+    public partial class Fall : PlayerState
     {
-        ApplyGravity(delta);
-        ApplyMovement(delta);
-        HandleSpriteFlip();
 
-        _parent.MoveAndSlide();
+        [Export] private State idleState;
+        [Export] private State moveState;
 
-        if (_parent.IsOnFloor())
+        public override State? ProcessPhysics(float delta)
         {
-            return _parent.Velocity.X == 0 ? idleState : moveState;
+            ApplyGravity(delta);
+            ApplyMovement(delta);
+            HandleSpriteFlip();
+
+            _parent.MoveAndSlide();
+
+            if (_parent.IsOnFloor())
+            {
+                return _parent.Velocity.X == 0 ? idleState : moveState;
+            }
+
+            return null;
         }
 
-        return null;
     }
 
 }
