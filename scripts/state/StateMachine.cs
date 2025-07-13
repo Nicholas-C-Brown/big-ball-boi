@@ -16,7 +16,7 @@ namespace BigBallBoiGame.State
         [Export]
         private State<T> startingState;
 
-        private State<T>? currentState;
+        private State<T> currentState;
 
 
         public void Initialize(T parent)
@@ -34,7 +34,6 @@ namespace BigBallBoiGame.State
             }
 
             ChangeState(startingState);
-
         }
 
         /// <summary>
@@ -42,7 +41,7 @@ namespace BigBallBoiGame.State
         /// First calls Exit() on the previous state and Enter() on the new state.
         /// </summary>
         /// <param name="newState"></param>
-        public void ChangeState(State<T> newState)
+        protected void ChangeState(State<T> newState)
         {
             if (currentState != null)
             {

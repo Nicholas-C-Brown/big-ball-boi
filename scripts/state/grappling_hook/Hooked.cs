@@ -13,7 +13,13 @@ namespace BigBallBoiGame.State.GrapplingHookStates
 
         public override void Enter()
         {
+            Parent.Hooked?.Invoke(true);
             hookedPosition = Parent.HookPoint.GlobalPosition;
+        }
+
+        public override void Exit()
+        {
+            Parent.Hooked?.Invoke(false);
         }
 
         public override State<GrapplingHook>? ProcessPhysics(float delta)

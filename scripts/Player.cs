@@ -10,30 +10,34 @@ namespace BigBallBoiGame
 
         public IMovementComponent MovementComponent { get; private set; }
         public AnimatedSprite2D AnimationComponent { get; private set; }
+        public GrapplingHook GrapplingHook { get; private set; }
 
-        [Export] private PlayerStateMachine stateMachine;
+        [Export] public PlayerStateMachine StateMachine { get; private set; }
 
         public override void _Ready()
         {
             MovementComponent = GetNode<IMovementComponent>("MovementComponent");
             AnimationComponent = GetNode<AnimatedSprite2D>("AnimationComponent");
+            GrapplingHook = GetNode<GrapplingHook>("GrapplingHook");
 
-            stateMachine.Initialize(this);
+            GrapplingHook.Hooked += StateMachine.AttachHook;
+
+            StateMachine.Initialize(this);
         }
 
         public override void _UnhandledInput(InputEvent @event)
         {
-            stateMachine.ProcessInput(@event);
+            StateMachine.ProcessInput(@event);
         }
 
         public override void _Process(double delta)
         {
-            stateMachine.ProcessFrame((float)delta);
+            StateMachine.ProcessFrame((float)delta);
         }
 
         public override void _PhysicsProcess(double delta)
         {
-            stateMachine.ProcessPhysics((float)delta);
+            StateMachine.ProcessPhysics((float)delta);
         }
 
     }

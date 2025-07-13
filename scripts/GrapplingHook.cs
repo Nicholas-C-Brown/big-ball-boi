@@ -1,6 +1,7 @@
 using BigBallBoiGame.State;
 using BigBallBoiGame.State.PlayerStates;
 using Godot;
+using System;
 
 namespace BigBallBoiGame
 {
@@ -13,7 +14,9 @@ namespace BigBallBoiGame
 
         public float AimDistance { get; private set; }
 
-        [Export] private GrapplingHookStateMachine stateMachine;
+        public Action<bool> Hooked;
+
+        [Export] public GrapplingHookStateMachine StateMachine { get; private set; }
 
         public override void _Ready()
         {
@@ -22,22 +25,22 @@ namespace BigBallBoiGame
 
             AimDistance = HookPoint.Position.Length();
 
-            stateMachine.Initialize(this);
+            StateMachine.Initialize(this);
         }
 
         public override void _UnhandledInput(InputEvent @event)
         {
-            stateMachine.ProcessInput(@event);
+            StateMachine.ProcessInput(@event);
         }
 
         public override void _Process(double delta)
         {
-            stateMachine.ProcessFrame((float)delta);
+            StateMachine.ProcessFrame((float)delta);
         }
 
         public override void _PhysicsProcess(double delta)
         {
-            stateMachine.ProcessPhysics((float)delta);
+            StateMachine.ProcessPhysics((float)delta);
         }
 
     }
