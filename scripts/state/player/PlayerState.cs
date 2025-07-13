@@ -5,28 +5,19 @@ using System;
 namespace BigBallBoiGame.State.PlayerStates
 {
 
-    public abstract partial class PlayerState : AnimatableState
+    public abstract partial class PlayerState : AnimatableState<Player> 
     {
 
         protected Vector2 gravity = new Vector2(0, ProjectSettings.GetSetting("physics/2d/default_gravity").As<float>());
 
-        protected Player _parent;
-        protected IMovementComponent _movementComponent;
-
-        public override void Initialize()
-        {
-            _parent = ComponentProvider.GetParentComponent<Player>();
-            _movementComponent = ComponentProvider.GetRequiredComponent<IMovementComponent>();
-        }
-
         protected void ApplyGravity(float delta)
         {
-            _parent.Velocity += gravity * delta;
+            Parent.Velocity += gravity * delta;
         }
 
         protected void ApplyMovement(float delta)
         {
-            float movement = _movementComponent.GetMovement();
+            float movement = Parent.MovementComponent.GetMovement();
 
             //Decelerate if the player is not moving
             if (movement == 0)
@@ -35,32 +26,32 @@ namespace BigBallBoiGame.State.PlayerStates
                 return;
             }
 
-            float maxMovementSpeed = _movementComponent.GetMaxMovementSpeed();
+            float maxMovementSpeed = Parent.MovementComponent.GetMaxMovementSpeed();
 
-            _parent.Velocity += new Vector2(movement * delta, 0);
+            Parent.Velocity += new Vector2(movement * delta, 0);
 
-            float unclampedVelocity = _parent.Velocity.X;
+            float unclampedVelocity = Parent.Velocity.X;
             float clampedVelocity = Mathf.Clamp(unclampedVelocity, -maxMovementSpeed, maxMovementSpeed);
 
-            _parent.Velocity = new Vector2(clampedVelocity, _parent.Velocity.Y);
+            Parent.Velocity = new Vector2(clampedVelocity, Parent.Velocity.Y);
         }
 
         protected void ApplyDeceleration(float delta)
         {
-            float horizontalVelocity = Mathf.Lerp(_parent.Velocity.X, 0, _movementComponent.GetDecelerationForce() * delta);
-            _parent.Velocity = new Vector2(horizontalVelocity, _parent.Velocity.Y);
+            float horizontalVelocity = Mathf.Lerp(Parent.Velocity.X, 0, Parent.MovementComponent.GetDecelerationForce() * delta);
+            Parent.Velocity = new Vector2(horizontalVelocity, Parent.Velocity.Y);
         }
 
         protected void HandleSpriteFlip()
         {
-            if (_parent.Velocity.X < 0)
+            if (Parent.Velocity.X < 0)
             {
-                _animationComponent.FlipH = true;
+                Parent.AnimationComponent.FlipH = true;
             }
 
-            if (_parent.Velocity.X > 0)
+            if (Parent.Velocity.X > 0)
             {
-                _animationComponent.FlipH = false;
+                Parent.AnimationComponent.FlipH = false;
             }
         }
 

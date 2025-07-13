@@ -4,36 +4,29 @@ using System;
 namespace BigBallBoiGame.State.GrapplingHookStates
 {
 
-    public partial class Hooked : State
+    public partial class Hooked : State<GrapplingHook>
     {
 
-        [Export] private State retractState;
+        [Export] private State<GrapplingHook> retractState;
 
         private Vector2 hookedPosition;
 
-        private GrapplingHook parent;
-
-        public override void Initialize()
-        {
-            parent = ComponentProvider.GetParentComponent<GrapplingHook>();
-        }
-
         public override void Enter()
         {
-            hookedPosition = parent.HookPoint.GlobalPosition;
+            hookedPosition = Parent.HookPoint.GlobalPosition;
         }
 
-        public override State? ProcessPhysics(float delta)
+        public override State<GrapplingHook>? ProcessPhysics(float delta)
         {
-            parent.LookAt(hookedPosition);
-            parent.HookPoint.GlobalPosition = hookedPosition;
+            Parent.LookAt(hookedPosition);
+            Parent.HookPoint.GlobalPosition = hookedPosition;
 
-            parent.HookLine.Points = [parent.Position, parent.HookPoint.Position];
+            Parent.HookLine.Points = [Parent.Position, Parent.HookPoint.Position];
 
             return null;
         }
 
-        public override State? ProcessInput(InputEvent input)
+        public override State<GrapplingHook>? ProcessInput(InputEvent input)
         {
             if (Input.IsActionJustReleased("hook"))
             {

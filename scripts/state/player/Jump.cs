@@ -7,32 +7,32 @@ namespace BigBallBoiGame.State.PlayerStates
     public partial class Jump : PlayerState
     {
 
-        [Export] private State idleState;
-        [Export] private State moveState;
-        [Export] private State fallState;
+        [Export] private State<Player> idleState;
+        [Export] private State<Player> moveState;
+        [Export] private State<Player> fallState;
 
         public override void Enter()
         {
             base.Enter();
-            _parent.Velocity = new Vector2(_parent.Velocity.X, _movementComponent.GetJumpStrength());
+            Parent.Velocity = new Vector2(Parent.Velocity.X, Parent.MovementComponent.GetJumpStrength());
         }
 
-        public override State? ProcessPhysics(float delta)
+        public override State<Player>? ProcessPhysics(float delta)
         {
             ApplyGravity(delta);
             ApplyMovement(delta);
             HandleSpriteFlip();
 
-            _parent.MoveAndSlide();
+            Parent.MoveAndSlide();
 
-            if (_parent.Velocity.Y > 0)
+            if (Parent.Velocity.Y > 0)
             {
                 return fallState;
             }
 
-            if (_parent.IsOnFloor())
+            if (Parent.IsOnFloor())
             {
-                return _parent.Velocity.X == 0 ? idleState : moveState;
+                return Parent.Velocity.X == 0 ? idleState : moveState;
             }
 
             return null;

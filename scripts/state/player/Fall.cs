@@ -7,20 +7,20 @@ namespace BigBallBoiGame.State.PlayerStates
     public partial class Fall : PlayerState
     {
 
-        [Export] private State idleState;
-        [Export] private State moveState;
+        [Export] private State<Player> idleState;
+        [Export] private State<Player> moveState;
 
-        public override State? ProcessPhysics(float delta)
+        public override State<Player>? ProcessPhysics(float delta)
         {
             ApplyGravity(delta);
             ApplyMovement(delta);
             HandleSpriteFlip();
 
-            _parent.MoveAndSlide();
+            Parent.MoveAndSlide();
 
-            if (_parent.IsOnFloor())
+            if (Parent.IsOnFloor())
             {
-                return _parent.Velocity.X == 0 ? idleState : moveState;
+                return Parent.Velocity.X == 0 ? idleState : moveState;
             }
 
             return null;

@@ -4,19 +4,10 @@ using System;
 namespace BigBallBoiGame.State
 {
 
-    public abstract partial class State : Node
+    public abstract partial class State<T> : Node where T: Node
     {
 
-        public ComponentProvider ComponentProvider { get; set; }
-
-        /// <summary>
-        /// Called once when the state machine initializes the state node
-        /// Used to prepare state components.
-        /// </summary>
-        public virtual void Initialize()
-        {
-
-        }
+        public T Parent { get; set; }
 
         /// <summary>
         /// Called when this state is swapped to from another state.
@@ -41,7 +32,7 @@ namespace BigBallBoiGame.State
         /// </summary>
         /// <param name="input">Input Event to be processed</param>
         /// <returns>The next state to transition to, or null if the state has not changed.</returns>
-        public virtual State? ProcessInput(InputEvent input)
+        public virtual State<T>? ProcessInput(InputEvent input)
         {
             return null;
         }
@@ -51,7 +42,7 @@ namespace BigBallBoiGame.State
         /// </summary>
         /// <param name="delta">Time since the last frame.</param>
         /// <returns>The next state to transition to, or null if the state has not changed.</returns>
-        public virtual State? ProcessFrame(float delta)
+        public virtual State<T>? ProcessFrame(float delta)
         {
             return null;
         }
@@ -61,7 +52,7 @@ namespace BigBallBoiGame.State
         /// </summary>
         /// <param name="delta">Time since the last frame.</param>
         /// <returns>The next state to transition to, or null if the state has not changed.</returns>
-        public virtual State? ProcessPhysics(float delta)
+        public virtual State<T>? ProcessPhysics(float delta)
         {
             return null;
         }

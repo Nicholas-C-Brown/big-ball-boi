@@ -1,7 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://u7sgttsf4yev"]
-
-[ext_resource type="Script" uid="uid://fffkoddy3h3d" path="res://scripts/state/ComponentProvider.cs" id="1_0pd2c"]
-
-[node name="ComponentProvider" type="Node" node_paths=PackedStringArray("components")]
-script = ExtResource("1_0pd2c")
-components = []

@@ -5,14 +5,15 @@ namespace BigBallBoiGame.State.PlayerStates {
 
     public partial class Idle : PlayerState
     {
+    
 
-        [Export] private State moveState;
-        [Export] private State jumpState;
-        [Export] private State fallState;
+        [Export] private State<Player> moveState;
+        [Export] private State<Player> jumpState;
+        [Export] private State<Player> fallState;
 
-        public override State? ProcessInput(InputEvent input)
+        public override State<Player>? ProcessInput(InputEvent input)
         {
-            if (_movementComponent.WantsToJump())
+            if (Parent.MovementComponent.WantsToJump())
             {
                 return jumpState;
             }
@@ -20,21 +21,21 @@ namespace BigBallBoiGame.State.PlayerStates {
             return null;
         }
 
-        public override State? ProcessPhysics(float delta)
+        public override State<Player>? ProcessPhysics(float delta)
         {
 
             ApplyDeceleration(delta);
 
             //Handle this in the physics process to avoid a bug where
             //the movement input event is consumed before the unhandled input call
-            if (_movementComponent.GetMovement() != 0)
+            if (Parent.MovementComponent.GetMovement() != 0)
             {
                 return moveState;
             }
 
-            _parent.MoveAndSlide();
+            Parent.MoveAndSlide();
 
-            if (!_parent.IsOnFloor())
+            if (!Parent.IsOnFloor())
             {
                 return fallState;
             }

@@ -1,4 +1,5 @@
 using BigBallBoiGame.State;
+using BigBallBoiGame.State.PlayerStates;
 using Godot;
 
 namespace BigBallBoiGame
@@ -12,8 +13,7 @@ namespace BigBallBoiGame
 
         public float AimDistance { get; private set; }
 
-        private ComponentProvider componentProvider;
-        private StateMachine stateMachine;
+        [Export] private GrapplingHookStateMachine stateMachine;
 
         public override void _Ready()
         {
@@ -22,9 +22,7 @@ namespace BigBallBoiGame
 
             AimDistance = HookPoint.Position.Length();
 
-            componentProvider = GetNode<ComponentProvider>("ComponentProvider");
-            stateMachine = GetNode<StateMachine>("StateMachine");
-            stateMachine.Initialize(componentProvider);
+            stateMachine.Initialize(this);
         }
 
         public override void _UnhandledInput(InputEvent @event)

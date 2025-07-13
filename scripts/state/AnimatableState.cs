@@ -4,20 +4,17 @@ using System;
 namespace BigBallBoiGame.State
 {
 
-    public abstract partial class AnimatableState : State
+    public abstract partial class AnimatableState<T> : State<T> where T: Node, IAnimatable 
+
     {
 
-        [Export] protected String? animationName;
-
-        [Export] protected AnimatedSprite2D _animationComponent;
+        [Export] protected string? animationName;
 
         public override void Enter()
         {
-            _animationComponent = ComponentProvider.GetRequiredComponent<AnimatedSprite2D>();
-
             if (animationName != null)
             {
-                _animationComponent?.Play(animationName);
+                Parent.AnimationComponent.Play(animationName);
             }
         }
 

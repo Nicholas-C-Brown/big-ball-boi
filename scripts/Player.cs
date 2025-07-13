@@ -1,21 +1,24 @@
 using BigBallBoiGame.State;
+using BigBallBoiGame.State.PlayerStates;
 using Godot;
 
 namespace BigBallBoiGame
 {
 
-    public partial class Player : CharacterBody2D
+    public partial class Player : CharacterBody2D, IAnimatable
     {
 
-        private ComponentProvider componentProvider;
-        private StateMachine stateMachine;
+        public IMovementComponent MovementComponent { get; private set; }
+        public AnimatedSprite2D AnimationComponent { get; private set; }
+
+        [Export] private PlayerStateMachine stateMachine;
 
         public override void _Ready()
         {
-            componentProvider = GetNode<ComponentProvider>("ComponentProvider");
-            stateMachine = GetNode<StateMachine>("StateMachine");
+            MovementComponent = GetNode<IMovementComponent>("MovementComponent");
+            AnimationComponent = GetNode<AnimatedSprite2D>("AnimationComponent");
 
-            stateMachine.Initialize(componentProvider);
+            stateMachine.Initialize(this);
         }
 
         public override void _UnhandledInput(InputEvent @event)

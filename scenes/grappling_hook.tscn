@@ -3,8 +3,8 @@
 [ext_resource type="Texture2D" uid="uid://bxx3cla58wlps" path="res://sprites/Traps/Spikes/Idle.png" id="1_psnef"]
 [ext_resource type="Script" uid="uid://bgc8j08ifn318" path="res://scripts/GrapplingHook.cs" id="1_q31ol"]
 [ext_resource type="Texture2D" uid="uid://crfbxcaraetkj" path="res://sprites/Traps/Spiked Ball/Chain.png" id="2_fdaym"]
-[ext_resource type="PackedScene" uid="uid://doscj1n833bia" path="res://scenes/state_machine.tscn" id="3_ko2m5"]
-[ext_resource type="PackedScene" uid="uid://u7sgttsf4yev" path="res://scenes/component_provider.tscn" id="4_q31ol"]
+[ext_resource type="PackedScene" uid="uid://cr1q4mdfnv1l8" path="res://scenes/state_machine.tscn" id="3_ko2m5"]
+[ext_resource type="Script" uid="uid://cehhbcpveo8ju" path="res://scripts/state/grappling_hook/GrapplingHookStateMachine.cs" id="5_myvdc"]
 [ext_resource type="Script" uid="uid://c2kqelndcjo0k" path="res://scripts/state/grappling_hook/Aiming.cs" id="5_ty4s7"]
 [ext_resource type="Script" uid="uid://cpqsihjbo5tqd" path="res://scripts/state/grappling_hook/Extending.cs" id="6_g2wdh"]
 [ext_resource type="Script" uid="uid://b71g7xddpuo7u" path="res://scripts/state/grappling_hook/Retracting.cs" id="7_3kvop"]
@@ -13,8 +13,9 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_nhcqx"]
 radius = 5.09902
 
-[node name="GrapplingHook" type="Node2D"]
+[node name="GrapplingHook" type="Node2D" node_paths=PackedStringArray("stateMachine")]
 script = ExtResource("1_q31ol")
+stateMachine = NodePath("StateMachine")
 
 [node name="HookPoint" type="Area2D" parent="."]
 z_index = 1
@@ -38,6 +39,7 @@ texture = ExtResource("2_fdaym")
 texture_mode = 1
 
 [node name="StateMachine" parent="." node_paths=PackedStringArray("startingState") instance=ExtResource("3_ko2m5")]
+script = ExtResource("5_myvdc")
 startingState = NodePath("Aiming")
 
 [node name="Aiming" type="Node" parent="StateMachine" node_paths=PackedStringArray("extendState")]
@@ -58,5 +60,3 @@ retractSpeed = 15.0
 [node name="Hooked" type="Node" parent="StateMachine" node_paths=PackedStringArray("retractState")]
 script = ExtResource("8_myvdc")
 retractState = NodePath("../Retracting")
-
-[node name="ComponentProvider" parent="." instance=ExtResource("4_q31ol")]

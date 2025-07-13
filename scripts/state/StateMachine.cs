@@ -10,96 +10,90 @@ namespace BigBallBoiGame.State
     /// <summary>
     /// Node component for handling object states
     /// </summary>
-    public partial class StateMachine : Node
+    public abstract partial class StateMachine<T> : Node where T : Node
     {
 
-    [Export]
-    private State startingState;
+        [Export]
+        private State<T> startingState;
 
-    private State? currentState;
+        private State<T>? currentState;
 
 
-    public void Initialize(ComponentProvider provider)
-    {
-        ArgumentNullException.ThrowIfNull(startingState);
-        ArgumentNullException.ThrowIfNull(provider);
-
-        //Find all child state nodes
-        List<State> childStates = GetChildren()
-            .OfType<State>()
-            .ToList();
-
-        foreach (State childState in childStates)
+        public void Initialize(T parent)
         {
-            childState.ComponentProvider = provider;
-            childState.Initialize();
+            ArgumentNullException.ThrowIfNull(startingState);
+
+            //Find all child state nodes
+            List<State<T>> childStates = GetChildren()
+                .OfType<State<T>>()
+                .ToList();
+
+            foreach (State<T> childState in childStates)
+            {
+                childState.Parent = parent;
+            }
+
+            ChangeState(startingState);
+
         }
 
-        ChangeState(startingState);
-
-    }
-
-    /// <summary>
-    /// Changes the State Machine's current state.<br/>
-    /// First calls Exit() on the previous state and Enter() on the new state.
-    /// </summary>
-    /// <param name="newState"></param>
-    public void ChangeState(State newState)
-    {
-        if (currentState != null)
+        /// <summary>
+        /// Changes the State Machine's current state.<br/>
+        /// First calls Exit() on the previous state and Enter() on the new state.
+        /// </summary>
+        /// <param name="newState"></param>
+        public void ChangeState(State<T> newState)
         {
-            currentState.Exit();
+            if (currentState != null)
+            {
+                currentState.Exit();
+            }
+
+            currentState = newState;
+            currentState.Enter();
         }
 
-        currentState = newState;
-        currentState.Enter();
-    }
-
-    /// <summary>
-    /// Pass through function for _UnhandledInput().<br/>
-    /// Handles state changes as needed.
-    /// </summary>
-    /// <param name="input">Input event</param>
-    public void ProcessInput(InputEvent input)
-    {
-
-
-
-        State? newState = currentState.ProcessInput(input);
-        if (newState != null)
+        /// <summary>
+        /// Pass through function for _UnhandledInput().<br/>
+        /// Handles state changes as needed.
+        /// </summary>
+        /// <param name="input">Input event</param>
+        public void ProcessInput(InputEvent input)
         {
-            ChangeState(newState);
+            State<T>? newState = currentState.ProcessInput(input);
+            if (newState != null)
+            {
+                ChangeState(newState);
+            }
         }
-    }
 
-    /// <summary>
-    /// Pass through function for _Process().<br/>
-    /// Handles state changes as needed.
-    /// </summary>
-    /// <param name="input">Input event</param>
-    public void ProcessFrame(float delta)
-    {
-        State? newState = currentState.ProcessFrame(delta);
-        if (newState != null)
+        /// <summary>
+        /// Pass through function for _Process().<br/>
+        /// Handles state changes as needed.
+        /// </summary>
+        /// <param name="input">Input event</param>
+        public void ProcessFrame(float delta)
         {
-            ChangeState(newState);
+            State<T>? newState = currentState.ProcessFrame(delta);
+            if (newState != null)
+            {
+                ChangeState(newState);
+            }
         }
-    }
 
-    /// <summary>
-    /// Pass through function for _PhysicsProcess().<br/>
-    /// Handles state changes as needed.
-    /// </summary>
-    /// <param name="input">Input event</param>
-    public void ProcessPhysics(float delta)
-    {
-        State? newState = currentState.ProcessPhysics(delta);
-        if (newState != null)
+        /// <summary>
+        /// Pass through function for _PhysicsProcess().<br/>
+        /// Handles state changes as needed.
+        /// </summary>
+        /// <param name="input">Input event</param>
+        public void ProcessPhysics(float delta)
         {
-            ChangeState(newState);
+            State<T>? newState = currentState.ProcessPhysics(delta);
+            if (newState != null)
+            {
+                ChangeState(newState);
+            }
         }
-    }
 
     }
-
 }
