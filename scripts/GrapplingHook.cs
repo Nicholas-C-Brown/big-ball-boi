@@ -14,7 +14,7 @@ namespace BigBallBoiGame
 
         public float AimDistance { get; private set; }
 
-        public Action<bool> Hooked;
+        public Action<bool> OnAttached;
 
         [Export] public GrapplingHookStateMachine StateMachine { get; private set; }
 

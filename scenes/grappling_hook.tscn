@@ -7,10 +7,10 @@
 [ext_resource type="Script" uid="uid://c2kqelndcjo0k" path="res://scripts/state/grappling_hook/Aiming.cs" id="5_ty4s7"]
 [ext_resource type="Script" uid="uid://cpqsihjbo5tqd" path="res://scripts/state/grappling_hook/Extending.cs" id="6_g2wdh"]
 [ext_resource type="Script" uid="uid://b71g7xddpuo7u" path="res://scripts/state/grappling_hook/Retracting.cs" id="7_3kvop"]
-[ext_resource type="Script" uid="uid://c2ci48bfdgso5" path="res://scripts/state/grappling_hook/Hooked.cs" id="8_myvdc"]
+[ext_resource type="Script" uid="uid://c2ci48bfdgso5" path="res://scripts/state/grappling_hook/Attached.cs" id="8_myvdc"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_nhcqx"]
-radius = 5.09902
+radius = 3.0
 
 [node name="GrapplingHook" type="Node2D" node_paths=PackedStringArray("StateMachine")]
 script = ExtResource("1_q31ol")
@@ -45,17 +45,17 @@ startingState = NodePath("Aiming")
 script = ExtResource("5_ty4s7")
 extendState = NodePath("../Extending")
 
-[node name="Extending" type="Node" parent="StateMachine" node_paths=PackedStringArray("hookedState", "retractState")]
+[node name="Extending" type="Node" parent="StateMachine" node_paths=PackedStringArray("attachedState", "retractState")]
 script = ExtResource("6_g2wdh")
-hookedState = NodePath("../Hooked")
+attachedState = NodePath("../Attached")
 retractState = NodePath("../Retracting")
-hookDistance = 200.0
+extendSpeed = 10.0
 
 [node name="Retracting" type="Node" parent="StateMachine" node_paths=PackedStringArray("aimState")]
 script = ExtResource("7_3kvop")
 aimState = NodePath("../Aiming")
-retractSpeed = 15.0
+retractSpeed = 25.0
 
-[node name="Hooked" type="Node" parent="StateMachine" node_paths=PackedStringArray("retractState")]
+[node name="Attached" type="Node" parent="StateMachine" node_paths=PackedStringArray("retractState")]
 script = ExtResource("8_myvdc")
 retractState = NodePath("../Retracting")

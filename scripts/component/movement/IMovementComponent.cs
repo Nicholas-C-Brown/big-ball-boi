@@ -19,10 +19,4 @@ public interface IMovementComponent
     /// <returns>True if the entity wants to jump</returns>
     bool WantsToJump();
 
-    /// <summary>
-    /// The strength of the deceleration force applied to the entity
-    /// </summary>
-    /// <returns>The entity's deceleration force</returns>
-    float GetDecelerationForce();
-
 }

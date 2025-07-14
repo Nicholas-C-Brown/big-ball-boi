@@ -4,7 +4,7 @@ using System;
 namespace BigBallBoiGame.State.GrapplingHookStates
 {
 
-    public partial class Hooked : State<GrapplingHook>
+    public partial class Attached : State<GrapplingHook>
     {
 
         [Export] private State<GrapplingHook> retractState;
@@ -13,13 +13,14 @@ namespace BigBallBoiGame.State.GrapplingHookStates
 
         public override void Enter()
         {
-            Parent.Hooked?.Invoke(true);
+            Parent.OnAttached?.Invoke(true);
             hookedPosition = Parent.HookPoint.GlobalPosition;
+    
         }
 
         public override void Exit()
         {
-            Parent.Hooked?.Invoke(false);
+            Parent.OnAttached?.Invoke(false);
         }
 
         public override State<GrapplingHook>? ProcessPhysics(float delta)

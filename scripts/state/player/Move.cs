@@ -25,7 +25,7 @@ namespace BigBallBoiGame.State.PlayerStates
         {
             HandleSpriteFlip();
 
-            float absoluteHorizontalVelocity = Mathf.Abs(Parent.Velocity.X);
+            float absoluteHorizontalVelocity = Mathf.Abs(Parent.LinearVelocity.X);
             float maxMovementSpeed = Parent.MovementComponent.GetMaxMovementSpeed();
             float speedScaleFactor = absoluteHorizontalVelocity / maxMovementSpeed;
 
@@ -38,13 +38,10 @@ namespace BigBallBoiGame.State.PlayerStates
         public override State<Player>? ProcessPhysics(float delta)
         {
 
-            ApplyGravity(delta);
-            ApplyMovement(delta);
-
-            Parent.MoveAndSlide();
+            ApplyMovement();
 
             int idleThreshold = 10;
-            if (Mathf.Abs(Parent.Velocity.X) < idleThreshold && Parent.MovementComponent.GetMovement() == 0)
+            if (Mathf.Abs(Parent.LinearVelocity.X) < idleThreshold && Parent.MovementComponent.GetMovement() == 0)
             {
                 return idleState;
             }

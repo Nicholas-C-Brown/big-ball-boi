@@ -5,14 +5,18 @@ using Godot;
 namespace BigBallBoiGame
 {
 
-    public partial class Player : CharacterBody2D, IAnimatable
+    public partial class Player : RigidBody2D, IAnimatable
     {
 
         public IMovementComponent MovementComponent { get; private set; }
         public AnimatedSprite2D AnimationComponent { get; private set; }
         public GrapplingHook GrapplingHook { get; private set; }
-
+       
+        [Export] public PinJoint2D GrapplingHookPinJoint { get; private set; }
+        [Export] public StaticBody2D GrapplingHookStaticBody {  get; private set; }
         [Export] public PlayerStateMachine StateMachine { get; private set; }
+
+        private ShapeCast2D groundCast;
 
         public override void _Ready()
         {
@@ -20,9 +24,11 @@ namespace BigBallBoiGame
             AnimationComponent = GetNode<AnimatedSprite2D>("AnimationComponent");
             GrapplingHook = GetNode<GrapplingHook>("GrapplingHook");
 
-            GrapplingHook.Hooked += StateMachine.AttachHook;
+            GrapplingHook.OnAttached += StateMachine.AttachHook;
 
             StateMachine.Initialize(this);
+
+            groundCast = GetNode<ShapeCast2D>("GroundCast");
         }
 
         public override void _UnhandledInput(InputEvent @event)
@@ -38,6 +44,11 @@ namespace BigBallBoiGame
         public override void _PhysicsProcess(double delta)
         {
             StateMachine.ProcessPhysics((float)delta);
+        }
+
+        public bool IsOnFloor()
+        {
+            return groundCast.IsColliding();
         }
 
     }

@@ -7,7 +7,7 @@ namespace BigBallBoiGame.State.GrapplingHookStates
     public partial class Extending : State<GrapplingHook>
     {
 
-        [Export] State<GrapplingHook> hookedState;
+        [Export] State<GrapplingHook> attachedState;
         [Export] State<GrapplingHook> retractState;
 
         [Export] private float hookDistance = 300;
@@ -29,7 +29,7 @@ namespace BigBallBoiGame.State.GrapplingHookStates
 
             if(Parent.HookPoint.HasOverlappingBodies())
             {
-                return IsHooked() ? hookedState : retractState;
+                return IsHooked() ? attachedState : retractState;
             }
 
             if (Parent.HookPoint.Position.Length() >= hookDistance)
@@ -59,8 +59,9 @@ namespace BigBallBoiGame.State.GrapplingHookStates
 
         private bool IsHooked()
         {
+
             Array<Node2D> overlappingBodies = Parent.HookPoint.GetOverlappingBodies();
-            foreach (Node body in overlappingBodies)
+            foreach (Node2D body in overlappingBodies)
             {
                 if (body.GetGroups().Contains("Hookable"))
                 {

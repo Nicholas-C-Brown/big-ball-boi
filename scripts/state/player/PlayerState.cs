@@ -8,48 +8,47 @@ namespace BigBallBoiGame.State.PlayerStates
     public abstract partial class PlayerState : AnimatableState<Player> 
     {
 
-        protected Vector2 gravity = new Vector2(0, ProjectSettings.GetSetting("physics/2d/default_gravity").As<float>());
-
-        protected void ApplyGravity(float delta)
+        protected void ApplyMovement()
         {
-            Parent.Velocity += gravity * delta;
-        }
 
-        protected void ApplyMovement(float delta)
-        {
             float movement = Parent.MovementComponent.GetMovement();
 
-            //Decelerate if the player is not moving
-            if (movement == 0)
+            var linearVelocity = Parent.LinearVelocity.X;
+
+            //If the player is already movement faster than their max movement speed
+            //then don't add any more force in the same direction
+            if (Mathf.Abs(linearVelocity) > Parent.MovementComponent.GetMaxMovementSpeed())
             {
-                ApplyDeceleration(delta);
-                return;
+
+                if (linearVelocity < 0 && movement < 0)
+                {
+                    return;
+                }
+
+                if (linearVelocity > 0 && movement > 0)
+                {
+                    return;
+                }
+
             }
 
-            float maxMovementSpeed = Parent.MovementComponent.GetMaxMovementSpeed();
-
-            Parent.Velocity += new Vector2(movement * delta, 0);
-
-            float unclampedVelocity = Parent.Velocity.X;
-            float clampedVelocity = Mathf.Clamp(unclampedVelocity, -maxMovementSpeed, maxMovementSpeed);
-
-            Parent.Velocity = new Vector2(clampedVelocity, Parent.Velocity.Y);
-        }
-
-        protected void ApplyDeceleration(float delta)
-        {
-            float horizontalVelocity = Mathf.Lerp(Parent.Velocity.X, 0, Parent.MovementComponent.GetDecelerationForce() * delta);
-            Parent.Velocity = new Vector2(horizontalVelocity, Parent.Velocity.Y);
+            Parent.ApplyCentralForce(new Vector2(movement, 0));
+ 
         }
 
         protected void HandleSpriteFlip()
         {
-            if (Parent.Velocity.X < 0)
+
+            //Calculates the player's X velocity relative to its current rotation in the world
+            Vector2 playerGlobalRotationVector = Vector2.FromAngle(Parent.GlobalRotation);
+            float relativeVelocityX = Parent.LinearVelocity.Dot(playerGlobalRotationVector);
+
+            if (relativeVelocityX < 0)
             {
                 Parent.AnimationComponent.FlipH = true;
             }
 
-            if (Parent.Velocity.X > 0)
+            if (relativeVelocityX > 0)
             {
                 Parent.AnimationComponent.FlipH = false;
             }

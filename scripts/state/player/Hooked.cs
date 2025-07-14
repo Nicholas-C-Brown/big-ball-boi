@@ -4,32 +4,42 @@ using BigBallBoiGame.State.PlayerStates;
 using Godot;
 using System;
 
-public partial class Hooked : PlayerState
-{
+namespace BigBallBoiGame.State.PlayerStates {
 
-    private Vector2 rotatePoint;
-    private float hookLength;
-
-    public override void Enter()
-    {
-        rotatePoint = Parent.GrapplingHook.HookPoint.GlobalPosition;
-
-        Vector2 direction = Parent.GlobalPosition - rotatePoint;
-        hookLength = direction.Length();
-    }
-
-    public override State<Player>? ProcessPhysics(float delta)
+    public partial class Hooked : PlayerState
     {
 
-        Vector2 direction = Parent.GlobalPosition - rotatePoint;
-        float distance = direction.Length();
+        public override void Enter()
+        {
 
-        if (distance > hookLength) {
-            direction = direction.Normalized() * hookLength;
-            Parent.GlobalPosition = rotatePoint + direction;
+            Vector2 hookPosition = Parent.GrapplingHook.HookPoint.GlobalPosition;
+            Parent.GrapplingHookPinJoint.GlobalPosition = hookPosition;
+
+            Parent.GrapplingHookPinJoint.NodeA = Parent.GrapplingHookStaticBody.GetPath();
+            Parent.GrapplingHookPinJoint.NodeB = Parent.GetPath();
+            Parent.LockRotation = false;
+
         }
 
-        return null;
-    }
+        public override void Exit()
+        {
+            Parent.GrapplingHookPinJoint.NodeA = new NodePath("");
+            Parent.GrapplingHookPinJoint.NodeB = new NodePath("");
 
+            Parent.GlobalRotation = 0;
+            Parent.LockRotation = true;
+        }
+
+        public override State<Player>? ProcessPhysics(float delta)
+        {
+
+            float movement = Parent.MovementComponent.GetMovement();
+            Parent.ApplyCentralForce(new Vector2(movement, 0).Rotated(Parent.Rotation));
+
+            HandleSpriteFlip();
+
+            return null;
+
+        }
+    }
 }

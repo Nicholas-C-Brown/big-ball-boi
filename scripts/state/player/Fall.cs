@@ -12,15 +12,15 @@ namespace BigBallBoiGame.State.PlayerStates
 
         public override State<Player>? ProcessPhysics(float delta)
         {
-            ApplyGravity(delta);
-            ApplyMovement(delta);
-            HandleSpriteFlip();
 
-            Parent.MoveAndSlide();
+            Parent.GlobalRotation = 0;
+
+            ApplyMovement();
+            HandleSpriteFlip();
 
             if (Parent.IsOnFloor())
             {
-                return Parent.Velocity.X == 0 ? idleState : moveState;
+                return Parent.LinearVelocity.X == 0 ? idleState : moveState;
             }
 
             return null;

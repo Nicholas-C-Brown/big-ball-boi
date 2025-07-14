@@ -24,16 +24,10 @@ namespace BigBallBoiGame.State.PlayerStates {
         public override State<Player>? ProcessPhysics(float delta)
         {
 
-            ApplyDeceleration(delta);
-
-            //Handle this in the physics process to avoid a bug where
-            //the movement input event is consumed before the unhandled input call
             if (Parent.MovementComponent.GetMovement() != 0)
             {
                 return moveState;
             }
-
-            Parent.MoveAndSlide();
 
             if (!Parent.IsOnFloor())
             {

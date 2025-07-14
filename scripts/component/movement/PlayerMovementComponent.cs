@@ -6,10 +6,9 @@ public partial class PlayerMovementComponent : Node, IMovementComponent
 
     [Export(PropertyHint.Range, "100, 1000")] private float jumpStrength = 400;
 
-    [Export(PropertyHint.Range, "100, 500")] private float movementForce = 200;
+    [Export(PropertyHint.Range, "1000, 5000")] private float movementForce = 200;
     [Export(PropertyHint.Range, "100, 500")] private float maxMoveSpeed = 100;
 
-    [Export(PropertyHint.Range, "0.1, 10")] private float decelerationForce = 3; 
 
     public float GetJumpStrength()
     {
@@ -37,10 +36,6 @@ public partial class PlayerMovementComponent : Node, IMovementComponent
         return Input.IsActionJustPressed("jump");
     }
 
-    public float GetDecelerationForce()
-    {
-        return decelerationForce;
-    }
 }
 
     
