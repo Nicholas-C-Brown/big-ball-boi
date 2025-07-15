@@ -13,6 +13,10 @@ public interface IMovementComponent
     /// <returns>The entity's movement direction multiplied by its movement speed</returns>
     float GetMovement();
 
+    float GetHookedMovementForce();
+
+    float GetHookedMovement();
+
     /// <returns>The entity's jump strength</returns>
     float GetJumpStrength();
 

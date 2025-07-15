@@ -16,7 +16,7 @@
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_jej6c"]
 friction = 0.0
-bounce = 0.52
+bounce = 0.4
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_487ah"]
 atlas = ExtResource("2_3v2ag")
@@ -223,11 +223,11 @@ size = Vector2(13.25, 15.5)
 
 [node name="Player" type="RigidBody2D" node_paths=PackedStringArray("StateMachine")]
 z_index = 100
+collision_layer = 2
 physics_material_override = SubResource("PhysicsMaterial_jej6c")
 can_sleep = false
 lock_rotation = true
 continuous_cd = 1
-linear_damp = 1.0
 script = ExtResource("1_g2els")
 StateMachine = NodePath("StateMachine")
 
@@ -243,10 +243,9 @@ position = Vector2(0.375, 6.75)
 shape = SubResource("RectangleShape2D_f1ej7")
 
 [node name="GroundCast" type="ShapeCast2D" parent="."]
-visible = false
-scale = Vector2(0.5, 1)
+scale = Vector2(0.645, 1)
 shape = SubResource("RectangleShape2D_jej6c")
-target_position = Vector2(0, 8)
+target_position = Vector2(0.8, 8)
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("hookedState", "fallingState", "startingState")]
 script = ExtResource("8_jej6c")
@@ -286,6 +285,7 @@ script = ExtResource("12_jej6c")
 
 [node name="MovementComponent" type="Node" parent="."]
 script = ExtResource("9_ur7pv")
-jumpStrength = 350.0
-movementForce = 1000.0
+jumpStrength = 450.0
+movementForce = 850.0
 maxMoveSpeed = 200.0
+hookedMovementForce = 600.0

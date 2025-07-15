@@ -6,6 +6,11 @@ using System;
 
 namespace BigBallBoiGame.State.PlayerStates {
 
+    /// <summary>
+    /// Represents the state when the player is swinging from the grappling hook.
+    /// <para/>
+    /// This state should only be entered when the grappling hook `OnAttached` action is triggered
+    /// </summary>
     public partial class Hooked : PlayerState
     {
 
@@ -26,20 +31,31 @@ namespace BigBallBoiGame.State.PlayerStates {
             Parent.GrapplingHookPinJoint.NodeA = new NodePath("");
             Parent.GrapplingHookPinJoint.NodeB = new NodePath("");
 
-            Parent.GlobalRotation = 0;
             Parent.LockRotation = true;
         }
 
         public override State<Player>? ProcessPhysics(float delta)
         {
 
-            float movement = Parent.MovementComponent.GetMovement();
-            Parent.ApplyCentralForce(new Vector2(movement, 0).Rotated(Parent.Rotation));
-
+            ApplyHookedMovement();
             HandleSpriteFlip();
 
             return null;
 
         }
+
+        private void ApplyHookedMovement()
+        {
+            float movement = Parent.MovementComponent.GetHookedMovement();
+
+            //Calculates the vector orthogonal to the direction from the player to the grappling hook pin joint
+            var directionToHookPoint = (Parent.GrapplingHookPinJoint.GlobalPosition - Parent.GlobalPosition).Normalized();
+            var radians = Mathf.DegToRad(90);
+            var orthogonalVector = directionToHookPoint.Rotated(radians);
+
+            Parent.ApplyCentralForce(orthogonalVector * movement);
+        }
+
+        
     }
 }

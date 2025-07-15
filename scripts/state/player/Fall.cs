@@ -13,8 +13,7 @@ namespace BigBallBoiGame.State.PlayerStates
         public override State<Player>? ProcessPhysics(float delta)
         {
 
-            Parent.GlobalRotation = 0;
-
+            RealignGlobalRotation(delta);
             ApplyMovement();
             HandleSpriteFlip();
 
@@ -24,6 +23,11 @@ namespace BigBallBoiGame.State.PlayerStates
             }
 
             return null;
+        }
+
+        public override void Exit()
+        {
+            Parent.GlobalRotation = 0;
         }
 
     }

@@ -24,7 +24,8 @@ namespace BigBallBoiGame
             AnimationComponent = GetNode<AnimatedSprite2D>("AnimationComponent");
             GrapplingHook = GetNode<GrapplingHook>("GrapplingHook");
 
-            GrapplingHook.OnAttached += StateMachine.AttachHook;
+            GrapplingHook.HookAttached += StateMachine.OnHookAttached;
+            GrapplingHook.HookDetached += StateMachine.OnHookDetacted;
 
             StateMachine.Initialize(this);
 

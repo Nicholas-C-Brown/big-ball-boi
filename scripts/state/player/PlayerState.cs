@@ -54,6 +54,12 @@ namespace BigBallBoiGame.State.PlayerStates
             }
         }
 
+        protected void RealignGlobalRotation(float delta)
+        {
+            float realignRotationSpeed = 5;
+            Parent.GlobalRotation = Mathf.Lerp(Parent.GlobalRotation, 0, realignRotationSpeed * delta);
+        }
+
     }
 
 }

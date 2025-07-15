@@ -8,16 +8,14 @@ namespace BigBallBoiGame.State.PlayerStates
         [Export] private State<Player> hookedState;
         [Export] private State<Player> fallingState;
 
-        public void AttachHook(bool hooked)
+        public void OnHookAttached()
         {
-            if (hooked)
-            {
-                ChangeState(hookedState);
-            }
-            else
-            {
-                ChangeState(fallingState);
-            }
-        }   
+            ChangeState(hookedState);
+        }  
+        
+        public void OnHookDetacted()
+        {
+            ChangeState(fallingState);
+        }
     }
 }
