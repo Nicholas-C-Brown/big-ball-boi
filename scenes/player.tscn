@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://bustllrpo6t2p"]
+[gd_scene load_steps=44 format=3 uid="uid://bustllrpo6t2p"]
 
 [ext_resource type="Script" uid="uid://dfwpxp14erf15" path="res://scripts/Player.cs" id="1_g2els"]
 [ext_resource type="Texture2D" uid="uid://bg63g5vbcv14f" path="res://sprites/Main Characters/Pink Man/Fall (32x32).png" id="2_3v2ag"]
@@ -13,6 +13,7 @@
 [ext_resource type="Script" uid="uid://c23d32drqcnnj" path="res://scripts/state/player/Jump.cs" id="8_y4r1p"]
 [ext_resource type="Script" uid="uid://co1v0io6spwng" path="res://scripts/component/movement/PlayerMovementComponent.cs" id="9_ur7pv"]
 [ext_resource type="Script" uid="uid://ctw5rep0lfq1v" path="res://scripts/state/player/Hooked.cs" id="12_jej6c"]
+[ext_resource type="Script" uid="uid://df8lattc1u0dk" path="res://scripts/state/player/Reeling.cs" id="13_f1ej7"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_jej6c"]
 friction = 0.0
@@ -280,8 +281,14 @@ moveState = NodePath("../Move")
 fallState = NodePath("../Fall")
 animationName = "jump"
 
-[node name="Hooked" type="Node" parent="StateMachine"]
+[node name="Hooked" type="Node" parent="StateMachine" node_paths=PackedStringArray("reelState")]
 script = ExtResource("12_jej6c")
+reelState = NodePath("../Reeling")
+
+[node name="Reeling" type="Node" parent="StateMachine" node_paths=PackedStringArray("hookedState", "fallState")]
+script = ExtResource("13_f1ej7")
+hookedState = NodePath("../Hooked")
+fallState = NodePath("../Fall")
 
 [node name="MovementComponent" type="Node" parent="."]
 script = ExtResource("9_ur7pv")
@@ -289,3 +296,5 @@ jumpStrength = 450.0
 movementForce = 850.0
 maxMoveSpeed = 200.0
 hookedMovementForce = 600.0
+upwardsReelingForce = 2300.0
+downwardsReelingForce = 200.0

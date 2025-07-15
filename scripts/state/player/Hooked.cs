@@ -14,6 +14,8 @@ namespace BigBallBoiGame.State.PlayerStates {
     public partial class Hooked : PlayerState
     {
 
+        [Export] State<Player> reelState;
+
         public override void Enter()
         {
 
@@ -42,6 +44,16 @@ namespace BigBallBoiGame.State.PlayerStates {
 
             return null;
 
+        }
+
+        public override State<Player>? ProcessInput(InputEvent input)
+        {
+            if(Input.IsActionPressed("reel_up") || Input.IsActionPressed("reel_down"))
+            {
+                return reelState;
+            }
+
+            return null;
         }
 
         private void ApplyHookedMovement()

@@ -20,6 +20,7 @@ StateMachine = NodePath("StateMachine")
 z_index = 1
 position = Vector2(14, 0)
 collision_layer = 2
+collision_mask = 4
 
 [node name="Sprite2D" type="Sprite2D" parent="HookPoint"]
 rotation = 1.5708

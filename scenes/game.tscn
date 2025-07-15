@@ -156,6 +156,7 @@ tile_map_data = PackedByteArray("AADy//D/AAANAAEAAADy//H/AAANAAIAAADz//D/AAAOAAE
 tile_set = ExtResource("2_lnu2h")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Ground/HookableObjectsLayer" groups=["Hookable"]]
+collision_layer = 4
 collision_mask = 2
 physics_material_override = SubResource("PhysicsMaterial_iywne")
 

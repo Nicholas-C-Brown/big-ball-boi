@@ -10,13 +10,12 @@ namespace BigBallBoiGame.State.GrapplingHookStates
         [Export] State<GrapplingHook> aimState;
 
         [Export] private float retractSpeed = 5;
-
-        private Vector2 returnPosition;
-
-      
+  
         public override State<GrapplingHook>? ProcessPhysics(float delta)
         {
-            Parent.HookPoint.Position += Vector2.Left * retractSpeed;
+            Vector2 lerpPosition = Parent.HookPoint.GlobalPosition.Lerp(Parent.GlobalPosition, retractSpeed * delta);
+            Parent.HookPoint.GlobalPosition = lerpPosition;
+            
             Parent.HookLine.Points = [Parent.Position, Parent.HookPoint.Position];
 
             if (Parent.HookPoint.Position.Length() <= Parent.AimDistance)

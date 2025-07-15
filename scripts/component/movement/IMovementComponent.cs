@@ -17,6 +17,10 @@ public interface IMovementComponent
 
     float GetHookedMovement();
 
+    float GetUpwardsReelingForce();
+
+    float GetDownwardsReelingForce();
+
     /// <returns>The entity's jump strength</returns>
     float GetJumpStrength();
 
