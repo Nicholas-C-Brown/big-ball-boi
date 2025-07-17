@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c76wvd8almaxi"
-path="res://.godot/imported/Pineapple.png-dbcf2d691e6e53e7904d8e106de1f94e.ctex"
+path="res://.godot/imported/Pineapple.png-ed66e2caaa9f83daeff2f3933310f690.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/Items/Fruits/Pineapple.png"
-dest_files=["res://.godot/imported/Pineapple.png-dbcf2d691e6e53e7904d8e106de1f94e.ctex"]
+source_file="res://Sprites/Items/Fruits/Pineapple.png"
+dest_files=["res://.godot/imported/Pineapple.png-ed66e2caaa9f83daeff2f3933310f690.ctex"]
 
 [params]
 

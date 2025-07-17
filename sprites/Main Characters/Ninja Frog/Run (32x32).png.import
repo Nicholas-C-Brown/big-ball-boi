@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bv2jtokdmo47y"
-path="res://.godot/imported/Run (32x32).png-ddc49bd6d49537df9bc211fea112ce38.ctex"
+path="res://.godot/imported/Run (32x32).png-19a887ca4e4d3c8d6ac981de23008e1a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/Main Characters/Ninja Frog/Run (32x32).png"
-dest_files=["res://.godot/imported/Run (32x32).png-ddc49bd6d49537df9bc211fea112ce38.ctex"]
+source_file="res://Sprites/Main Characters/Ninja Frog/Run (32x32).png"
+dest_files=["res://.godot/imported/Run (32x32).png-19a887ca4e4d3c8d6ac981de23008e1a.ctex"]
 
 [params]
 

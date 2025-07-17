@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://crfbxcaraetkj"
-path="res://.godot/imported/Chain.png-4864e658fd107b491f96f9666e828048.ctex"
+path="res://.godot/imported/Chain.png-7a127ffee0eb5d6abdcc34663ff0da2b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/Traps/Spiked Ball/Chain.png"
-dest_files=["res://.godot/imported/Chain.png-4864e658fd107b491f96f9666e828048.ctex"]
+source_file="res://Sprites/Traps/Spiked Ball/Chain.png"
+dest_files=["res://.godot/imported/Chain.png-7a127ffee0eb5d6abdcc34663ff0da2b.ctex"]
 
 [params]
 

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bjq4v2minlalu"
-path="res://.godot/imported/Text (White) (8x10).png-ba23f56d9647fbee0292425a2723efba.ctex"
+path="res://.godot/imported/Text (White) (8x10).png-091f3d779de3a6f9f702edd3a2a71289.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/Menu/Text/Text (White) (8x10).png"
-dest_files=["res://.godot/imported/Text (White) (8x10).png-ba23f56d9647fbee0292425a2723efba.ctex"]
+source_file="res://Sprites/Menu/Text/Text (White) (8x10).png"
+dest_files=["res://.godot/imported/Text (White) (8x10).png-091f3d779de3a6f9f702edd3a2a71289.ctex"]
 
 [params]
 

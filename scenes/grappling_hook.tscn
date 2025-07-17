@@ -1,19 +1,19 @@
 [gd_scene load_steps=10 format=3 uid="uid://b3hmnvswpq82f"]
 
-[ext_resource type="Texture2D" uid="uid://bxx3cla58wlps" path="res://sprites/Traps/Spikes/Idle.png" id="1_psnef"]
-[ext_resource type="Script" uid="uid://bgc8j08ifn318" path="res://scripts/GrapplingHook.cs" id="1_q31ol"]
-[ext_resource type="Texture2D" uid="uid://crfbxcaraetkj" path="res://sprites/Traps/Spiked Ball/Chain.png" id="2_fdaym"]
-[ext_resource type="Script" uid="uid://cehhbcpveo8ju" path="res://scripts/state/grappling_hook/GrapplingHookStateMachine.cs" id="5_myvdc"]
-[ext_resource type="Script" uid="uid://c2kqelndcjo0k" path="res://scripts/state/grappling_hook/Aiming.cs" id="5_ty4s7"]
-[ext_resource type="Script" uid="uid://cpqsihjbo5tqd" path="res://scripts/state/grappling_hook/Extending.cs" id="6_g2wdh"]
-[ext_resource type="Script" uid="uid://b71g7xddpuo7u" path="res://scripts/state/grappling_hook/Retracting.cs" id="7_3kvop"]
-[ext_resource type="Script" uid="uid://c2ci48bfdgso5" path="res://scripts/state/grappling_hook/Attached.cs" id="8_myvdc"]
+[ext_resource type="Script" uid="uid://cg2pp6jr52iy2" path="res://Scripts/Grappling Hook/GrapplingHookNode.cs" id="1_lr8cf"]
+[ext_resource type="Texture2D" uid="uid://bxx3cla58wlps" path="res://Sprites/Traps/Spikes/Idle.png" id="1_psnef"]
+[ext_resource type="Texture2D" uid="uid://crfbxcaraetkj" path="res://Sprites/Traps/Spiked Ball/Chain.png" id="2_fdaym"]
+[ext_resource type="Script" uid="uid://cehhbcpveo8ju" path="res://Scripts/Grappling Hook/State/GrapplingHookStateMachine.cs" id="5_myvdc"]
+[ext_resource type="Script" uid="uid://c2kqelndcjo0k" path="res://Scripts/Grappling Hook/State/Aiming.cs" id="5_ty4s7"]
+[ext_resource type="Script" uid="uid://cpqsihjbo5tqd" path="res://Scripts/Grappling Hook/State/Extending.cs" id="6_g2wdh"]
+[ext_resource type="Script" uid="uid://b71g7xddpuo7u" path="res://Scripts/Grappling Hook/State/Retracting.cs" id="7_3kvop"]
+[ext_resource type="Script" uid="uid://c2ci48bfdgso5" path="res://Scripts/Grappling Hook/State/Attached.cs" id="8_myvdc"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_nhcqx"]
 radius = 3.0
 
 [node name="GrapplingHook" type="Node2D" node_paths=PackedStringArray("StateMachine")]
-script = ExtResource("1_q31ol")
+script = ExtResource("1_lr8cf")
 StateMachine = NodePath("StateMachine")
 
 [node name="HookPoint" type="Area2D" parent="."]

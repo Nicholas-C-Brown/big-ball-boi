@@ -1,17 +1,17 @@
 [gd_scene load_steps=9 format=3 uid="uid://c1nq5ykgav8q6"]
 
-[ext_resource type="Texture2D" uid="uid://n6btadth54wh" path="res://sprites/Weapons/MBG Weapon Pack.png" id="1_voyse"]
-[ext_resource type="Script" uid="uid://cyh4ci1tvuyqf" path="res://scripts/Shotgun.cs" id="1_w47vr"]
-[ext_resource type="PackedScene" uid="uid://dr3cd6hxcgmhy" path="res://scenes/bullet.tscn" id="2_f3xtl"]
-[ext_resource type="Script" uid="uid://cpsjxpb0msgkc" path="res://scripts/state/shotgun/ShotgunStateMachine.cs" id="3_ma6dp"]
-[ext_resource type="Script" uid="uid://fd0ybjr401ny" path="res://scripts/state/shotgun/Idle.cs" id="4_lmvec"]
-[ext_resource type="Script" uid="uid://cvgywcruhk4gl" path="res://scripts/state/shotgun/Shoot.cs" id="5_lmvec"]
-[ext_resource type="Script" uid="uid://pvamrhk7q7in" path="res://scripts/component/gun/ShotgunComponent.cs" id="5_ma6dp"]
-[ext_resource type="Script" uid="uid://by63mo4iv3x3g" path="res://scripts/state/shotgun/Reload.cs" id="6_8opwo"]
+[ext_resource type="Script" uid="uid://c3vj7hgk4ijmv" path="res://Scripts/Gun/Shotgun/ShotgunNode.cs" id="1_nc2j0"]
+[ext_resource type="Texture2D" uid="uid://n6btadth54wh" path="res://Sprites/Weapons/MBG Weapon Pack.png" id="1_voyse"]
+[ext_resource type="PackedScene" uid="uid://dr3cd6hxcgmhy" path="res://Scenes/bullet.tscn" id="2_tte5i"]
+[ext_resource type="Script" uid="uid://cpsjxpb0msgkc" path="res://Scripts/Gun/Shotgun/State/ShotgunStateMachine.cs" id="3_ma6dp"]
+[ext_resource type="Script" uid="uid://fd0ybjr401ny" path="res://Scripts/Gun/Shotgun/State/Idle.cs" id="4_lmvec"]
+[ext_resource type="Script" uid="uid://cvgywcruhk4gl" path="res://Scripts/Gun/Shotgun/State/Shoot.cs" id="5_lmvec"]
+[ext_resource type="Script" uid="uid://pvamrhk7q7in" path="res://Scripts/Gun/Shotgun/Component/ShotgunComponent.cs" id="5_ma6dp"]
+[ext_resource type="Script" uid="uid://by63mo4iv3x3g" path="res://Scripts/Gun/Shotgun/State/Reload.cs" id="6_8opwo"]
 
 [node name="Shotgun" type="Node2D"]
-script = ExtResource("1_w47vr")
-BulletScene = ExtResource("2_f3xtl")
+script = ExtResource("1_nc2j0")
+BulletScene = ExtResource("2_tte5i")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(3, 0)

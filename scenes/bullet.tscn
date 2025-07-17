@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://dr3cd6hxcgmhy"]
 
-[ext_resource type="Texture2D" uid="uid://d00n3w5s1klbp" path="res://sprites/Traps/Saw/Chain.png" id="1_mkf8s"]
-[ext_resource type="Script" uid="uid://c3f0nf0xwha5" path="res://scripts/Bullet.cs" id="1_y25gk"]
+[ext_resource type="Script" uid="uid://c3f0nf0xwha5" path="res://Scripts/Gun/Bullet.cs" id="1_oduel"]
+[ext_resource type="Texture2D" uid="uid://d00n3w5s1klbp" path="res://Sprites/Traps/Saw/Chain.png" id="2_ycag2"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_y25gk"]
 radius = 2.0
@@ -11,10 +11,10 @@ collision_layer = 2
 collision_mask = 8
 gravity_scale = 0.0
 can_sleep = false
-script = ExtResource("1_y25gk")
+script = ExtResource("1_oduel")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_mkf8s")
+texture = ExtResource("2_ycag2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_y25gk")

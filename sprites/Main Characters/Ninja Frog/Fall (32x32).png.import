@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bixb6ivrbf0bh"
-path="res://.godot/imported/Fall (32x32).png-b1dfa1e2905d598beace0bd746c78478.ctex"
+path="res://.godot/imported/Fall (32x32).png-9bdc19c52074cdda90c52d84cedb49ad.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/Main Characters/Ninja Frog/Fall (32x32).png"
-dest_files=["res://.godot/imported/Fall (32x32).png-b1dfa1e2905d598beace0bd746c78478.ctex"]
+source_file="res://Sprites/Main Characters/Ninja Frog/Fall (32x32).png"
+dest_files=["res://.godot/imported/Fall (32x32).png-9bdc19c52074cdda90c52d84cedb49ad.ctex"]
 
 [params]
 

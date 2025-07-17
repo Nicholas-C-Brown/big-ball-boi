@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://0abitxrr8tsm"
-path="res://.godot/imported/Cherries.png-78dfa5bbd3e78e9beea853fafd794c16.ctex"
+path="res://.godot/imported/Cherries.png-14a3a91b5ea23c7aec4cc9eec147cae4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/Items/Fruits/Cherries.png"
-dest_files=["res://.godot/imported/Cherries.png-78dfa5bbd3e78e9beea853fafd794c16.ctex"]
+source_file="res://Sprites/Items/Fruits/Cherries.png"
+dest_files=["res://.godot/imported/Cherries.png-14a3a91b5ea23c7aec4cc9eec147cae4.ctex"]
 
 [params]
 
