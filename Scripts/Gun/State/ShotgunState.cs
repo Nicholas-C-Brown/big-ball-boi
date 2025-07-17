@@ -1,9 +1,10 @@
+using BigBallBoi.Scripts.Gun;
 using BigBallBoiGame.State;
 using Godot;
 
 namespace BigBallBoiGame.Scripts.Gun.Shotgun.State
 {
-    public partial class ShotgunState : State<ShotgunNode>
+    public partial class GunState : State<GunNode>
     {
 
         protected void LookAtMouse()

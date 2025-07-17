@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://b3hmnvswpq82f"]
+[gd_scene load_steps=11 format=3 uid="uid://b3hmnvswpq82f"]
 
 [ext_resource type="Script" uid="uid://cg2pp6jr52iy2" path="res://Scripts/Grappling Hook/GrapplingHookNode.cs" id="1_lr8cf"]
 [ext_resource type="Texture2D" uid="uid://bxx3cla58wlps" path="res://Sprites/Traps/Spikes/Idle.png" id="1_psnef"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://cpqsihjbo5tqd" path="res://Scripts/Grappling Hook/State/Extending.cs" id="6_g2wdh"]
 [ext_resource type="Script" uid="uid://b71g7xddpuo7u" path="res://Scripts/Grappling Hook/State/Retracting.cs" id="7_3kvop"]
 [ext_resource type="Script" uid="uid://c2ci48bfdgso5" path="res://Scripts/Grappling Hook/State/Attached.cs" id="8_myvdc"]
+[ext_resource type="Script" uid="uid://ea74dqdyerxy" path="res://Scripts/Grappling Hook/GrapplingHookInputHandler.cs" id="9_c1itd"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_nhcqx"]
 radius = 3.0
@@ -59,3 +60,6 @@ retractSpeed = 15.0
 [node name="Attached" type="Node" parent="StateMachine" node_paths=PackedStringArray("retractState")]
 script = ExtResource("8_myvdc")
 retractState = NodePath("../Retracting")
+
+[node name="InputHandler" type="Node" parent="."]
+script = ExtResource("9_c1itd")

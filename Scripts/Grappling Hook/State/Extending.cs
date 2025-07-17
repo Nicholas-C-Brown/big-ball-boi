@@ -1,5 +1,7 @@
 using Godot;
 using Godot.Collections;
+using System;
+using System.Linq;
 
 namespace BigBallBoiGame.Scripts.GrapplingHook.State
 {
@@ -42,7 +44,7 @@ namespace BigBallBoiGame.Scripts.GrapplingHook.State
 
         public override GrapplingHookState? ProcessInput(InputEvent input)
         {
-            if(Input.IsActionJustReleased("hook"))
+            if(Parent.InputHandler.WantsToRetractHook())
             {
                 return retractState;
             }
@@ -59,17 +61,8 @@ namespace BigBallBoiGame.Scripts.GrapplingHook.State
 
         private bool IsHooked()
         {
-
             Array<Node2D> overlappingBodies = Parent.HookPoint.GetOverlappingBodies();
-            foreach (Node2D body in overlappingBodies)
-            {
-                if (body.GetGroups().Contains("Hookable"))
-                {
-                    return true; 
-                }
-            }
-
-            return false;
+            return overlappingBodies.FirstOrDefault(b => b.GetGroups().Contains("Hookable")) != null;
         }
 
 

@@ -12,7 +12,7 @@ namespace BigBallBoiGame.Scripts.Player.State
         protected void ApplyMovement()
         {
 
-            float movement = Parent.MovementComponent.GetMovement();
+            float movement = Parent.InputHandler.GetHorizontalMovementDirection() * Parent.MovementComponent.GetMovementForce();
 
             var linearVelocity = Parent.LinearVelocity.X;
 

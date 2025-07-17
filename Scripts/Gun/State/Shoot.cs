@@ -3,11 +3,11 @@ using Godot;
 namespace BigBallBoiGame.Scripts.Gun.Shotgun.State
 {
 
-    public partial class Shoot : ShotgunState
+    public partial class Shoot : GunState
     {
 
-        [Export] ShotgunState idleState;
-        [Export] ShotgunState reloadState;
+        [Export] GunState idleState;
+        [Export] GunState reloadState;
 
         public override void Enter()
         {
@@ -39,7 +39,7 @@ namespace BigBallBoiGame.Scripts.Gun.Shotgun.State
 
         }
 
-        public override ShotgunState? ProcessFrame(float delta)
+        public override GunState? ProcessFrame(float delta)
         {
             if (Parent.IsClipEmpty())
             {

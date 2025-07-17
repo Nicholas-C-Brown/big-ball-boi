@@ -10,6 +10,7 @@ namespace BigBallBoiGame.Scripts.GrapplingHook
 
         public Area2D HookPoint { get; private set; }
         public Line2D HookLine { get; private set; }
+        public GrapplingHookInputHandler InputHandler { get; private set; }
 
         public float AimDistance { get; private set; }
 
@@ -22,6 +23,7 @@ namespace BigBallBoiGame.Scripts.GrapplingHook
         {
             HookPoint = GetNode<Area2D>("HookPoint");
             HookLine = GetNode<Line2D>("HookLine");
+            InputHandler = GetNode<GrapplingHookInputHandler>("InputHandler");
 
             AimDistance = HookPoint.Position.Length();
 

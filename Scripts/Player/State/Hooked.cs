@@ -44,7 +44,7 @@ namespace BigBallBoiGame.Scripts.Player.State {
 
         public override PlayerState? ProcessInput(InputEvent input)
         {
-            if(Input.IsActionPressed("reel_up") || Input.IsActionPressed("reel_down"))
+            if(Parent.InputHandler.WantsToReel())
             {
                 return reelState;
             }
@@ -54,7 +54,7 @@ namespace BigBallBoiGame.Scripts.Player.State {
 
         private void ApplyHookedMovement()
         {
-            float movement = Parent.MovementComponent.GetHookedMovement();
+            float movement = Parent.InputHandler.GetHorizontalMovementDirection() * Parent.MovementComponent.GetHookedMovementForce();
 
             //Calculates the vector orthogonal to the direction from the player to the grappling hook pin joint
             var directionToHookPoint = (Parent.GrapplingHookPinJoint.GlobalPosition - Parent.GlobalPosition).Normalized();

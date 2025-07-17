@@ -13,7 +13,7 @@ namespace BigBallBoiGame.Scripts.Player.State
 
         public override PlayerState? ProcessInput(InputEvent input)
         {
-            if (Parent.MovementComponent.WantsToJump())
+            if (Parent.InputHandler.WantsToJump())
             {
                 return jumpState;
             }
@@ -41,7 +41,7 @@ namespace BigBallBoiGame.Scripts.Player.State
             ApplyMovement();
 
             int idleThreshold = 10;
-            if (Mathf.Abs(Parent.LinearVelocity.X) < idleThreshold && Parent.MovementComponent.GetMovement() == 0)
+            if (Mathf.Abs(Parent.LinearVelocity.X) < idleThreshold && Parent.InputHandler.GetHorizontalMovementDirection() == 0)
             {
                 return idleState;
             }

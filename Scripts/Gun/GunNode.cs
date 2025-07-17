@@ -1,33 +1,35 @@
-using BigBallBoiGame.Scripts.Component;
+using BigBallBoiGame.Scripts.Gun;
+using BigBallBoiGame.Scripts.Gun.Component;
 using BigBallBoiGame.Scripts.Gun.Shotgun.State;
 using Godot;
 using System;
 
-namespace BigBallBoiGame.Scripts.Gun.Shotgun  
+namespace BigBallBoi.Scripts.Gun
 {
-
-    public partial class ShotgunNode : Node2D
+    public partial class GunNode : Node2D
     {
 
         [Export] public PackedScene BulletScene { get; private set; }
 
+        public GunComponent GunComponent { get; protected set; }
+        public GunInputHandler InputHandler { get; protected set; }
+        public GunStateMachine StateMachine { get; private set; }
         public Sprite2D Sprite { get; private set; }
-        public ShotgunStateMachine StateMachine { get; private set; }
-        public IGunComponent GunComponent { get; private set; }
 
-        public Action<float> Shoot;
+        public Action<float> Shoot { get; set; }
 
         private int ammo;
 
         public override void _Ready()
         {
+            GunComponent = GetNode<GunComponent>("GunComponent");
+            InputHandler = GetNode<GunInputHandler>("InputHandler");
             Sprite = GetNode<Sprite2D>("Sprite2D");
-            StateMachine = GetNode<ShotgunStateMachine>("StateMachine");
-            GunComponent = GetNode<IGunComponent>("GunComponent");
+            StateMachine = GetNode<GunStateMachine>("StateMachine");
 
             StateMachine.Initialize(this);
 
-            ammo = GunComponent.GetClipSize();
+            Reload();
         }
 
         public override void _UnhandledInput(InputEvent @event)
@@ -61,6 +63,4 @@ namespace BigBallBoiGame.Scripts.Gun.Shotgun
         }
 
     }
-
 }
-

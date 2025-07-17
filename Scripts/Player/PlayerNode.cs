@@ -1,6 +1,7 @@
-using BigBallBoiGame.Scripts.Component;
-using BigBallBoiGame.Scripts.Gun.Shotgun;
+using BigBallBoi.Scripts.Gun;
 using BigBallBoiGame.Scripts.GrapplingHook;
+using BigBallBoiGame.Scripts.Gun.Shotgun;
+using BigBallBoiGame.Scripts.Player.Component;
 using BigBallBoiGame.Scripts.Player.State;
 using Godot;
 
@@ -10,10 +11,11 @@ namespace BigBallBoiGame.Scripts.Player
     public partial class PlayerNode : RigidBody2D, IAnimatableState
     {
 
-        public IMovementComponent MovementComponent { get; private set; }
+        public PlayerMovementComponent MovementComponent { get; private set; }
+        public PlayerInputHandler InputHandler { get; private set; }
         public AnimatedSprite2D AnimationComponent { get; private set; }
         public GrapplingHookNode GrapplingHook { get; private set; }
-        public ShotgunNode Shotgun { get; private set; }
+        public GunNode Shotgun { get; private set; }
        
         [Export] public PinJoint2D GrapplingHookPinJoint { get; private set; }
         [Export] public StaticBody2D GrapplingHookStaticBody {  get; private set; }
@@ -23,10 +25,11 @@ namespace BigBallBoiGame.Scripts.Player
 
         public override void _Ready()
         {
-            MovementComponent = GetNode<IMovementComponent>("MovementComponent");
+            MovementComponent = GetNode<PlayerMovementComponent>("MovementComponent");
+            InputHandler = GetNode<PlayerInputHandler>("InputHandler");
             AnimationComponent = GetNode<AnimatedSprite2D>("AnimationComponent");
             GrapplingHook = GetNode<GrapplingHookNode>("GrapplingHook");
-            Shotgun = GetNode<ShotgunNode>("Shotgun");
+            Shotgun = GetNode<GunNode>("Shotgun");
 
             GrapplingHook.HookAttached += StateMachine.OnHookAttached;
             GrapplingHook.HookDetached += StateMachine.OnHookDetacted;

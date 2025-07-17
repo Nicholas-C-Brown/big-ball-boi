@@ -1,10 +1,9 @@
-using BigBallBoiGame.Scripts.Component;
 using Godot;
 
-namespace BigBallBoiGame.Scripts.Gun.Shotgun.Component 
+namespace BigBallBoiGame.Scripts.Gun.Component 
 {
 
-    public partial class ShotgunComponent : Node, IGunComponent
+    public partial class GunComponent : Node
     {
 
         [Export] private int clipSize = 2;
@@ -48,11 +47,6 @@ namespace BigBallBoiGame.Scripts.Gun.Shotgun.Component
         public float GetReloadTime()
         {
             return reloadTime;
-        }
-
-        public bool WantsToShoot()
-        {
-            return Input.IsActionJustPressed("shoot");
         }
 
     }

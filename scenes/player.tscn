@@ -1,11 +1,10 @@
-[gd_scene load_steps=45 format=3 uid="uid://bustllrpo6t2p"]
+[gd_scene load_steps=46 format=3 uid="uid://bustllrpo6t2p"]
 
 [ext_resource type="Script" uid="uid://dm6b8crcllnf7" path="res://Scripts/Player/PlayerNode.cs" id="1_h4iuc"]
 [ext_resource type="Texture2D" uid="uid://bg63g5vbcv14f" path="res://Sprites/Main Characters/Pink Man/Fall (32x32).png" id="2_3v2ag"]
 [ext_resource type="PackedScene" uid="uid://b3hmnvswpq82f" path="res://Scenes/grappling_hook.tscn" id="2_jej6c"]
 [ext_resource type="Texture2D" uid="uid://158yleb780mn" path="res://Sprites/Main Characters/Pink Man/Idle (32x32).png" id="2_ur7pv"]
 [ext_resource type="Texture2D" uid="uid://cufhx13p3uorj" path="res://Sprites/Main Characters/Pink Man/Jump (32x32).png" id="3_d2wvv"]
-[ext_resource type="PackedScene" uid="uid://c1nq5ykgav8q6" path="res://Scenes/shotgun.tscn" id="3_oprun"]
 [ext_resource type="Texture2D" uid="uid://bwqkqmpd0wyda" path="res://Sprites/Main Characters/Pink Man/Run (32x32).png" id="3_y4r1p"]
 [ext_resource type="Script" uid="uid://drfeii507plxc" path="res://Scripts/Player/State/Idle.cs" id="5_qlg0r"]
 [ext_resource type="Script" uid="uid://7i84oi445gba" path="res://Scripts/Player/State/Fall.cs" id="6_smehm"]
@@ -15,6 +14,8 @@
 [ext_resource type="Script" uid="uid://co1v0io6spwng" path="res://Scripts/Player/Component/PlayerMovementComponent.cs" id="9_ur7pv"]
 [ext_resource type="Script" uid="uid://ctw5rep0lfq1v" path="res://Scripts/Player/State/Hooked.cs" id="12_jej6c"]
 [ext_resource type="Script" uid="uid://df8lattc1u0dk" path="res://Scripts/Player/State/Reeling.cs" id="13_f1ej7"]
+[ext_resource type="Script" uid="uid://cfi2ohfrhpxwx" path="res://scripts/Player/PlayerInputHandler.cs" id="16_fd4e3"]
+[ext_resource type="PackedScene" uid="uid://d3a74hn77agtt" path="res://Scenes/gun.tscn" id="16_qqcod"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_jej6c"]
 friction = 0.0
@@ -237,7 +238,7 @@ StateMachine = NodePath("StateMachine")
 [node name="GrapplingHook" parent="." instance=ExtResource("2_jej6c")]
 z_index = 10
 
-[node name="Shotgun" parent="." instance=ExtResource("3_oprun")]
+[node name="Shotgun" parent="." instance=ExtResource("16_qqcod")]
 z_index = 1
 position = Vector2(0, 9)
 
@@ -304,3 +305,6 @@ maxMoveSpeed = 200.0
 hookedMovementForce = 600.0
 upwardsReelingForce = 2300.0
 downwardsReelingForce = 200.0
+
+[node name="InputHandler" type="Node" parent="."]
+script = ExtResource("16_fd4e3")

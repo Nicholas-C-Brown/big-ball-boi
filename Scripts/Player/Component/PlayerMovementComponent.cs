@@ -1,11 +1,9 @@
-using BigBallBoiGame.Scripts.Component;
 using Godot;
-using System;
 
 namespace BigBallBoiGame.Scripts.Player.Component
 {
 
-    public partial class PlayerMovementComponent : Node, IMovementComponent
+    public partial class PlayerMovementComponent : Node
     {
 
         [Export(PropertyHint.Range, "100, 1000")] private float jumpStrength;
@@ -17,6 +15,7 @@ namespace BigBallBoiGame.Scripts.Player.Component
         [Export(PropertyHint.Range, "100, 3000")] private float upwardsReelingForce;
         [Export(PropertyHint.Range, "100, 3000")] private float downwardsReelingForce;
 
+   
 
         public float GetJumpStrength()
         {
@@ -33,19 +32,9 @@ namespace BigBallBoiGame.Scripts.Player.Component
             return maxMoveSpeed;
         }
 
-        public float GetMovement()
-        {
-            return Input.GetAxis("move_left", "move_right") * movementForce;
-        }
-
         public float GetHookedMovementForce()
         {
             return hookedMovementForce;
-        }
-
-        public float GetHookedMovement()
-        {
-            return Input.GetAxis("move_left", "move_right") * hookedMovementForce;
         }
 
         public float GetUpwardsReelingForce()
@@ -55,13 +44,9 @@ namespace BigBallBoiGame.Scripts.Player.Component
 
         public float GetDownwardsReelingForce()
         {
-            return downwardsReelingForce;
+            return -downwardsReelingForce;
         }
 
-        public bool WantsToJump()
-        {
-            return Input.IsActionJustPressed("jump");
-        }
 
 
     }

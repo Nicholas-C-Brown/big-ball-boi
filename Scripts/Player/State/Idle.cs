@@ -13,7 +13,7 @@ namespace BigBallBoiGame.Scripts.Player.State {
 
         public override PlayerState? ProcessInput(InputEvent input)
         {
-            if (Parent.MovementComponent.WantsToJump())
+            if (Parent.InputHandler.WantsToJump())
             {
                 return jumpState;
             }
@@ -24,7 +24,7 @@ namespace BigBallBoiGame.Scripts.Player.State {
         public override PlayerState? ProcessPhysics(float delta)
         {
 
-            if (Parent.MovementComponent.GetMovement() != 0)
+            if (Parent.InputHandler.GetHorizontalMovementDirection() != 0)
             {
                 return moveState;
             }

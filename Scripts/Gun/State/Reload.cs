@@ -2,10 +2,10 @@ using Godot;
 
 namespace BigBallBoiGame.Scripts.Gun.Shotgun.State {
 
-    public partial class Reload : ShotgunState
+    public partial class Reload : GunState
     {
 
-        [Export] ShotgunState idleState;
+        [Export] GunState idleState;
 
         private float reloadTimer;
 
@@ -19,7 +19,7 @@ namespace BigBallBoiGame.Scripts.Gun.Shotgun.State {
 
         }
 
-        public override ShotgunState? ProcessFrame(float delta)
+        public override GunState? ProcessFrame(float delta)
         {
             reloadTimer -= delta;
 

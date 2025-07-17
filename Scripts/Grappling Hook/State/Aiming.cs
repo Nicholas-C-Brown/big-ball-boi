@@ -20,7 +20,7 @@ namespace BigBallBoiGame.Scripts.GrapplingHook.State
             Vector2 mousePosition = Parent.GetGlobalMousePosition();
             Parent.LookAt(mousePosition);
 
-            if(Input.IsActionJustPressed("hook"))
+            if(Parent.InputHandler.WantsToExtendHook())
             {
                 return extendState;
             }

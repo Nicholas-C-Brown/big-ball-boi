@@ -11,20 +11,23 @@ namespace BigBallBoiGame.Scripts.Player.State
 
         public override PlayerState? ProcessPhysics(float delta)
         {
-            var directionToHookPoint = (Parent.GrapplingHookPinJoint.GlobalPosition - Parent.GlobalPosition).Normalized();
+            Vector2 directionToHookPoint = (Parent.GrapplingHookPinJoint.GlobalPosition - Parent.GlobalPosition).Normalized();
+            float reelingDirection = Parent.InputHandler.GetVerticalReelingDirection();
 
-            Vector2 reelForce = Vector2.Zero;
-
-            if (Input.IsActionPressed("reel_up") && !Input.IsActionPressed("reel_down")) 
-            { 
-                reelForce = directionToHookPoint * Parent.MovementComponent.GetUpwardsReelingForce();
-            } else if (!Input.IsActionPressed("reel_up") && Input.IsActionPressed("reel_down"))
+            float reelingForce = 0;
+            if (reelingDirection < 0)
             {
-                reelForce = -directionToHookPoint * Parent.MovementComponent.GetDownwardsReelingForce();
+                reelingForce = Parent.MovementComponent.GetDownwardsReelingForce();
+            }
+            else if (reelingDirection > 0)
+            {
+                reelingForce = Parent.MovementComponent.GetUpwardsReelingForce();
             }
 
+            Vector2 reelingVector = reelingForce * directionToHookPoint;
+            
             var velocityLerpSpeed = 2;
-            Vector2 lerpVector = Parent.LinearVelocity.Lerp(reelForce, velocityLerpSpeed * delta);
+            Vector2 lerpVector = Parent.LinearVelocity.Lerp(reelingVector, velocityLerpSpeed * delta);
             Parent.LinearVelocity = lerpVector;
 
             return null;
@@ -33,7 +36,7 @@ namespace BigBallBoiGame.Scripts.Player.State
         public override PlayerState? ProcessInput(InputEvent input)
         {
 
-            if (!Input.IsActionPressed("reel_up") && !Input.IsActionPressed("reel_down"))
+            if (!Parent.InputHandler.WantsToReel())
             {
                 return hookedState;
             }

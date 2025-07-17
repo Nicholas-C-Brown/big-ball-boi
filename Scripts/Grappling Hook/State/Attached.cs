@@ -35,7 +35,7 @@ namespace BigBallBoiGame.Scripts.GrapplingHook.State
         public override GrapplingHookState? ProcessInput(InputEvent input)
         {
 
-            if (Input.IsActionJustReleased("hook"))
+            if (Parent.InputHandler.WantsToRetractHook())
             {
                 return retractState;
             }
