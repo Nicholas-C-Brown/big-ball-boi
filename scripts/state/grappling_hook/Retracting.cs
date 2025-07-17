@@ -11,7 +11,7 @@ namespace BigBallBoiGame.State.GrapplingHookStates
 
         [Export] private float retractSpeed = 5;
   
-        public override State<GrapplingHook>? ProcessPhysics(float delta)
+        public override State<GrapplingHook>? ProcessFrame(float delta)
         {
             Vector2 lerpPosition = Parent.HookPoint.GlobalPosition.Lerp(Parent.GlobalPosition, retractSpeed * delta);
             Parent.HookPoint.GlobalPosition = lerpPosition;

@@ -23,7 +23,7 @@ namespace BigBallBoiGame.State.GrapplingHookStates
             Parent.HookDetached?.Invoke();
         }
 
-        public override State<GrapplingHook>? ProcessPhysics(float delta)
+        public override State<GrapplingHook>? ProcessFrame(float delta)
         {
             Parent.LookAt(hookedPosition);
             Parent.HookPoint.GlobalPosition = hookedPosition;

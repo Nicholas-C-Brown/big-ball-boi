@@ -1,7 +1,7 @@
 [gd_scene load_steps=20 format=4 uid="uid://bd7x563fbqn5"]
 
 [ext_resource type="PackedScene" uid="uid://bustllrpo6t2p" path="res://scenes/player.tscn" id="1_lnu2h"]
-[ext_resource type="TileSet" uid="uid://c2gy0s6xwp4dl" path="res://scenes/terrain.tres" id="2_lnu2h"]
+[ext_resource type="TileSet" uid="uid://c2gy0s6xwp4dl" path="res://tile_sets/terrain.tres" id="2_lnu2h"]
 [ext_resource type="Texture2D" uid="uid://d4h1rmm4ivh7j" path="res://sprites/Background/Blue.png" id="2_yqjtg"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_lnu2h"]
@@ -182,7 +182,8 @@ shape = SubResource("RectangleShape2D_kvuet")
 
 [node name="GrapplingHookJoint" type="PinJoint2D" parent="."]
 position = Vector2(-64, -161)
-softness = 0.84
+bias = 0.5
+softness = 8.0
 
 [node name="GrapplingHookBody" type="StaticBody2D" parent="."]
 position = Vector2(-64, -161)

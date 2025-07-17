@@ -41,7 +41,7 @@ namespace BigBallBoiGame.State
         /// First calls Exit() on the previous state and Enter() on the new state.
         /// </summary>
         /// <param name="newState"></param>
-        public void ChangeState(State<T> newState)
+        protected void ChangeState(State<T> newState)
         {
             if (currentState != null)
             {

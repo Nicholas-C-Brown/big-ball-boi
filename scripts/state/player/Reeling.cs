@@ -24,8 +24,8 @@ namespace BigBallBoiGame.State.PlayerStates
                 reelForce = -directionToHookPoint * Parent.MovementComponent.GetDownwardsReelingForce();
             }
 
-            var magicLerpNumber = 2;
-            Vector2 lerpVector = Parent.LinearVelocity.Lerp(reelForce, magicLerpNumber * delta);
+            var velocityLerpSpeed = 2;
+            Vector2 lerpVector = Parent.LinearVelocity.Lerp(reelForce, velocityLerpSpeed * delta);
             Parent.LinearVelocity = lerpVector;
 
             return null;

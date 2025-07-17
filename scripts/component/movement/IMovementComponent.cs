@@ -1,30 +1,35 @@
 using Godot;
 using System;
 
-public interface IMovementComponent
+namespace BigBallBoiGame.Component.Movement
 {
 
-    /// <returns>The entity's movement speed</returns>
-    float GetMovementForce();
+    public interface IMovementComponent
+    {
 
-    /// <returns>The entity's maximum movement speed</returns>
-    float GetMaxMovementSpeed();
+        /// <returns>The entity's movement speed</returns>
+        float GetMovementForce();
 
-    /// <returns>The entity's movement direction multiplied by its movement speed</returns>
-    float GetMovement();
+        /// <returns>The entity's maximum movement speed</returns>
+        float GetMaxMovementSpeed();
 
-    float GetHookedMovementForce();
+        /// <returns>The entity's movement direction multiplied by its movement speed</returns>
+        float GetMovement();
 
-    float GetHookedMovement();
+        float GetHookedMovementForce();
 
-    float GetUpwardsReelingForce();
+        float GetHookedMovement();
 
-    float GetDownwardsReelingForce();
+        float GetUpwardsReelingForce();
 
-    /// <returns>The entity's jump strength</returns>
-    float GetJumpStrength();
+        float GetDownwardsReelingForce();
 
-    /// <returns>True if the entity wants to jump</returns>
-    bool WantsToJump();
+        /// <returns>The entity's jump strength</returns>
+        float GetJumpStrength();
+
+        /// <returns>True if the entity wants to jump</returns>
+        bool WantsToJump();
+
+    }
 
 }

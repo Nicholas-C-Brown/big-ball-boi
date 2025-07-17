@@ -15,7 +15,7 @@ namespace BigBallBoiGame.State.GrapplingHookStates
             Parent.HookLine.Points = Array.Empty<Vector2>();
         }
 
-        public override State<GrapplingHook>? ProcessPhysics(float delta)
+        public override State<GrapplingHook>? ProcessFrame(float delta)
         {
             Vector2 mousePosition = Parent.GetGlobalMousePosition();
             Parent.LookAt(mousePosition);

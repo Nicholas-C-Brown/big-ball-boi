@@ -20,7 +20,7 @@ namespace BigBallBoiGame.State.GrapplingHookStates
             CalculateTargetPosition();
         }
 
-        public override State<GrapplingHook>? ProcessPhysics(float delta)
+        public override State<GrapplingHook>? ProcessFrame(float delta)
         {
 
             Parent.LookAt(targetPosition);

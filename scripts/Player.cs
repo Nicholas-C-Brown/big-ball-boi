@@ -1,4 +1,4 @@
-using BigBallBoiGame.State;
+using BigBallBoiGame.Component.Movement;
 using BigBallBoiGame.State.PlayerStates;
 using Godot;
 
@@ -11,6 +11,7 @@ namespace BigBallBoiGame
         public IMovementComponent MovementComponent { get; private set; }
         public AnimatedSprite2D AnimationComponent { get; private set; }
         public GrapplingHook GrapplingHook { get; private set; }
+        public Shotgun Shotgun { get; private set; }
        
         [Export] public PinJoint2D GrapplingHookPinJoint { get; private set; }
         [Export] public StaticBody2D GrapplingHookStaticBody {  get; private set; }
@@ -23,9 +24,12 @@ namespace BigBallBoiGame
             MovementComponent = GetNode<IMovementComponent>("MovementComponent");
             AnimationComponent = GetNode<AnimatedSprite2D>("AnimationComponent");
             GrapplingHook = GetNode<GrapplingHook>("GrapplingHook");
+            Shotgun = GetNode<Shotgun>("Shotgun");
 
             GrapplingHook.HookAttached += StateMachine.OnHookAttached;
             GrapplingHook.HookDetached += StateMachine.OnHookDetacted;
+
+            Shotgun.Shoot += ApplyGunKnockback;
 
             StateMachine.Initialize(this);
 
@@ -50,6 +54,11 @@ namespace BigBallBoiGame
         public bool IsOnFloor()
         {
             return groundCast.IsColliding();
+        }
+
+        public void ApplyGunKnockback(float knockback)
+        {
+            ApplyCentralImpulse(-Vector2.FromAngle(Shotgun.GlobalRotation) * knockback);
         }
 
     }
