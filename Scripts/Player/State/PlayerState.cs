@@ -12,13 +12,13 @@ namespace BigBallBoiGame.Scripts.Player.State
         protected void ApplyMovement()
         {
 
-            float movement = Parent.InputHandler.GetHorizontalMovementDirection() * Parent.MovementComponent.GetMovementForce();
+            float movement = Parent.InputHandler.GetHorizontalMovementDirection() * Parent.Stats.MovementForce;
 
             var linearVelocity = Parent.LinearVelocity.X;
 
             //If the player is already movement faster than their max movement speed
             //then don't add any more force in the same direction
-            if (Mathf.Abs(linearVelocity) > Parent.MovementComponent.GetMaxMovementSpeed())
+            if (Mathf.Abs(linearVelocity) > Parent.Stats.MaxAppliedMovementSpeed)
             {
 
                 if (linearVelocity < 0 && movement < 0)

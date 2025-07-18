@@ -1,8 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://b3hmnvswpq82f"]
+[gd_scene load_steps=14 format=3 uid="uid://b3hmnvswpq82f"]
 
 [ext_resource type="Script" uid="uid://cg2pp6jr52iy2" path="res://Scripts/Grappling Hook/GrapplingHookNode.cs" id="1_lr8cf"]
 [ext_resource type="Texture2D" uid="uid://bxx3cla58wlps" path="res://Sprites/Traps/Spikes/Idle.png" id="1_psnef"]
 [ext_resource type="Texture2D" uid="uid://crfbxcaraetkj" path="res://Sprites/Traps/Spiked Ball/Chain.png" id="2_fdaym"]
+[ext_resource type="Resource" uid="uid://dxul1kn50p2fy" path="res://Resources/grappling_hook_stats.tres" id="2_wehhd"]
+[ext_resource type="PackedScene" uid="uid://c3vxragv2efpf" path="res://Scenes/Grappling Hook/grappling_hook_pinjoint.tscn" id="2_x7rdg"]
+[ext_resource type="PackedScene" uid="uid://birwd4oj2eleg" path="res://Scenes/Grappling Hook/grappling_hook_body.tscn" id="3_wehhd"]
 [ext_resource type="Script" uid="uid://cehhbcpveo8ju" path="res://Scripts/Grappling Hook/State/GrapplingHookStateMachine.cs" id="5_myvdc"]
 [ext_resource type="Script" uid="uid://c2kqelndcjo0k" path="res://Scripts/Grappling Hook/State/Aiming.cs" id="5_ty4s7"]
 [ext_resource type="Script" uid="uid://cpqsihjbo5tqd" path="res://Scripts/Grappling Hook/State/Extending.cs" id="6_g2wdh"]
@@ -15,6 +18,9 @@ radius = 3.0
 
 [node name="GrapplingHook" type="Node2D" node_paths=PackedStringArray("StateMachine")]
 script = ExtResource("1_lr8cf")
+Stats = ExtResource("2_wehhd")
+PinJointScene = ExtResource("2_x7rdg")
+HookBodyScene = ExtResource("3_wehhd")
 StateMachine = NodePath("StateMachine")
 
 [node name="HookPoint" type="Area2D" parent="."]
@@ -55,7 +61,6 @@ retractState = NodePath("../Retracting")
 [node name="Retracting" type="Node" parent="StateMachine" node_paths=PackedStringArray("aimState")]
 script = ExtResource("7_3kvop")
 aimState = NodePath("../Aiming")
-retractSpeed = 15.0
 
 [node name="Attached" type="Node" parent="StateMachine" node_paths=PackedStringArray("retractState")]
 script = ExtResource("8_myvdc")

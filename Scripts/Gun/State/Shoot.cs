@@ -13,7 +13,7 @@ namespace BigBallBoiGame.Scripts.Gun.Shotgun.State
         {
             //Create bullets
             RandomNumberGenerator rng = new RandomNumberGenerator();
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < Parent.Stats.BulletCount; i++)
             {
                 Bullet bullet = Parent.BulletScene.Instantiate<Bullet>();
 
@@ -22,19 +22,19 @@ namespace BigBallBoiGame.Scripts.Gun.Shotgun.State
                 Vector2 bulletDirection = Vector2.FromAngle(Parent.GlobalRotation);
 
                 //Randomize the direction a little for bullet spread
-                float spreadRadians = Parent.GunComponent.GetBulletSpreadRadians();
+                float spreadRadians = Mathf.DegToRad(Parent.Stats.BulletSpreadDegrees);
                 float angle = rng.RandfRange(-spreadRadians, spreadRadians);
 
                 //Calculate bullet velocity
-                Vector2 bulletVelocity = bulletDirection.Rotated(angle) * Parent.GunComponent.GetBulletSpeed();
+                Vector2 bulletVelocity = bulletDirection.Rotated(angle) * Parent.Stats.BulletSpeed;
                 bullet.ApplyCentralImpulse(bulletVelocity);
 
-                bullet.Damage = Parent.GunComponent.GetDamage();
+                bullet.Damage = Parent.Stats.Damage;
 
                 GetTree().Root.AddChild(bullet);
             }
 
-            Parent.Shoot?.Invoke(Parent.GunComponent.GetKnockbackForce());
+            Parent.Shoot?.Invoke();
             Parent.SubtractAmmo();
 
         }

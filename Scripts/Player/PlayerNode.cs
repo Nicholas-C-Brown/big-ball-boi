@@ -1,44 +1,43 @@
 using BigBallBoi.Scripts.Gun;
+using BigBallBoi.Scripts.Player;
 using BigBallBoiGame.Scripts.GrapplingHook;
-using BigBallBoiGame.Scripts.Gun.Shotgun;
-using BigBallBoiGame.Scripts.Player.Component;
 using BigBallBoiGame.Scripts.Player.State;
 using Godot;
 
 namespace BigBallBoiGame.Scripts.Player
 {
 
-    public partial class PlayerNode : RigidBody2D, IAnimatableState
+    public partial class PlayerNode : RigidBody2D, IAnimatable
     {
 
-        public PlayerMovementComponent MovementComponent { get; private set; }
+        [Export] public PlayerStatsResource Stats { get; private set; }
+
+        public PlayerStateMachine StateMachine { get; private set; }
         public PlayerInputHandler InputHandler { get; private set; }
         public AnimatedSprite2D AnimationComponent { get; private set; }
         public GrapplingHookNode GrapplingHook { get; private set; }
-        public GunNode Shotgun { get; private set; }
-       
-        [Export] public PinJoint2D GrapplingHookPinJoint { get; private set; }
-        [Export] public StaticBody2D GrapplingHookStaticBody {  get; private set; }
-        [Export] public PlayerStateMachine StateMachine { get; private set; }
+        public GunNode Gun { get; private set; }
 
         private ShapeCast2D groundCast;
 
         public override void _Ready()
         {
-            MovementComponent = GetNode<PlayerMovementComponent>("MovementComponent");
+            StateMachine = GetNode<PlayerStateMachine>("StateMachine");
             InputHandler = GetNode<PlayerInputHandler>("InputHandler");
             AnimationComponent = GetNode<AnimatedSprite2D>("AnimationComponent");
             GrapplingHook = GetNode<GrapplingHookNode>("GrapplingHook");
-            Shotgun = GetNode<GunNode>("Shotgun");
+            Gun = GetNode<GunNode>("Shotgun");
 
+            groundCast = GetNode<ShapeCast2D>("GroundCast");
+
+            //Configure Action callbacks
             GrapplingHook.HookAttached += StateMachine.OnHookAttached;
             GrapplingHook.HookDetached += StateMachine.OnHookDetacted;
 
-            Shotgun.Shoot += ApplyGunKnockback;
+            Gun.Shoot += ApplyGunKnockback;
+
 
             StateMachine.Initialize(this);
-
-            groundCast = GetNode<ShapeCast2D>("GroundCast");
         }
 
         public override void _UnhandledInput(InputEvent @event)
@@ -61,9 +60,9 @@ namespace BigBallBoiGame.Scripts.Player
             return groundCast.IsColliding();
         }
 
-        public void ApplyGunKnockback(float knockback)
+        public void ApplyGunKnockback()
         {
-            ApplyCentralImpulse(-Vector2.FromAngle(Shotgun.GlobalRotation) * knockback);
+            ApplyCentralImpulse(-Vector2.FromAngle(Gun.GlobalRotation) * Gun.Stats.KnockbackForce);
         }
 
     }

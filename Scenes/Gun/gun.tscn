@@ -3,21 +3,21 @@
 [ext_resource type="Script" uid="uid://bvy8rk546x7tx" path="res://Scripts/Gun/GunNode.cs" id="1_bsipy"]
 [ext_resource type="Script" uid="uid://xb8xn2aowgsy" path="res://Scripts/Gun/State/GunStateMachine.cs" id="1_k4teu"]
 [ext_resource type="Script" uid="uid://ngthdofg0vqi" path="res://Scripts/Gun/State/Idle.cs" id="2_ft2q4"]
-[ext_resource type="PackedScene" uid="uid://dr3cd6hxcgmhy" path="res://Scenes/bullet.tscn" id="2_ftlo2"]
+[ext_resource type="PackedScene" uid="uid://dr3cd6hxcgmhy" path="res://Scenes/Gun/bullet.tscn" id="2_ftlo2"]
 [ext_resource type="Script" uid="uid://cqjr3ra50iy38" path="res://Scripts/Gun/State/Shoot.cs" id="3_alhkf"]
+[ext_resource type="Resource" uid="uid://dcfpa2j53qx8e" path="res://Resources/shotgun_stats.tres" id="3_ttx6w"]
 [ext_resource type="Script" uid="uid://wrpwwowtqeqk" path="res://Scripts/Gun/State/Reload.cs" id="4_bsipy"]
-[ext_resource type="Script" uid="uid://cx2ye04akloef" path="res://Scripts/Gun/Component/GunComponent.cs" id="5_alhkf"]
 [ext_resource type="Script" uid="uid://c6fbvix8g7vg4" path="res://Scripts/Gun/GunInputHandler.cs" id="6_bsipy"]
 [ext_resource type="Texture2D" uid="uid://n6btadth54wh" path="res://Sprites/Weapons/MBG Weapon Pack.png" id="9_xlq0n"]
 
 [node name="Gun" type="Node2D"]
 script = ExtResource("1_bsipy")
 BulletScene = ExtResource("2_ftlo2")
+Stats = ExtResource("3_ttx6w")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(3, 0)
 texture = ExtResource("9_xlq0n")
-region_enabled = true
 region_rect = Rect2(42, 17, 27, 5)
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("startingState")]
@@ -37,11 +37,6 @@ reloadState = NodePath("../Reload")
 [node name="Reload" type="Node" parent="StateMachine" node_paths=PackedStringArray("idleState")]
 script = ExtResource("4_bsipy")
 idleState = NodePath("../Idle")
-
-[node name="GunComponent" type="Node" parent="."]
-script = ExtResource("5_alhkf")
-knockbackForce = 800.0
-bulletSpeed = 750.0
 
 [node name="InputHandler" type="Node" parent="."]
 script = ExtResource("6_bsipy")

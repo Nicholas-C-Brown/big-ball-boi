@@ -15,7 +15,7 @@ namespace BigBallBoiGame.Scripts.Player.State
         {
             base.Enter();
 
-            Parent.ApplyCentralImpulse(new Vector2(0, Parent.MovementComponent.GetJumpStrength()));
+            Parent.ApplyCentralImpulse(new Vector2(0, Parent.Stats.JumpStrength));
         }
 
         public override PlayerState? ProcessPhysics(float delta)

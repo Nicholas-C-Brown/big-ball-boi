@@ -16,18 +16,18 @@ namespace BigBallBoiGame.Scripts.Player.State {
         {
 
             Vector2 hookPosition = Parent.GrapplingHook.HookPoint.GlobalPosition;
-            Parent.GrapplingHookPinJoint.GlobalPosition = hookPosition;
+            Parent.GrapplingHook.PinJoint.GlobalPosition = hookPosition;
 
-            Parent.GrapplingHookPinJoint.NodeA = Parent.GrapplingHookStaticBody.GetPath();
-            Parent.GrapplingHookPinJoint.NodeB = Parent.GetPath();
+            Parent.GrapplingHook.PinJoint.NodeA = Parent.GrapplingHook.HookBody.GetPath();
+            Parent.GrapplingHook.PinJoint.NodeB = Parent.GetPath();
             Parent.LockRotation = false;
 
         }
 
         public override void Exit()
         {
-            Parent.GrapplingHookPinJoint.NodeA = new NodePath("");
-            Parent.GrapplingHookPinJoint.NodeB = new NodePath("");
+            Parent.GrapplingHook.PinJoint.NodeA = new NodePath("");
+            Parent.GrapplingHook.PinJoint.NodeB = new NodePath("");
 
             Parent.LockRotation = true;
         }
@@ -54,10 +54,10 @@ namespace BigBallBoiGame.Scripts.Player.State {
 
         private void ApplyHookedMovement()
         {
-            float movement = Parent.InputHandler.GetHorizontalMovementDirection() * Parent.MovementComponent.GetHookedMovementForce();
+            float movement = Parent.InputHandler.GetHorizontalMovementDirection() * Parent.Stats.MovementForce;
 
             //Calculates the vector orthogonal to the direction from the player to the grappling hook pin joint
-            var directionToHookPoint = (Parent.GrapplingHookPinJoint.GlobalPosition - Parent.GlobalPosition).Normalized();
+            var directionToHookPoint = (Parent.GrapplingHook.PinJoint.GlobalPosition - Parent.GlobalPosition).Normalized();
             var radians = Mathf.DegToRad(90);
             var orthogonalVector = directionToHookPoint.Rotated(radians);
 

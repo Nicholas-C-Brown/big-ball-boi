@@ -11,17 +11,17 @@ namespace BigBallBoiGame.Scripts.Player.State
 
         public override PlayerState? ProcessPhysics(float delta)
         {
-            Vector2 directionToHookPoint = (Parent.GrapplingHookPinJoint.GlobalPosition - Parent.GlobalPosition).Normalized();
+            Vector2 directionToHookPoint = (Parent.GrapplingHook.PinJoint.GlobalPosition - Parent.GlobalPosition).Normalized();
             float reelingDirection = Parent.InputHandler.GetVerticalReelingDirection();
 
             float reelingForce = 0;
             if (reelingDirection < 0)
             {
-                reelingForce = Parent.MovementComponent.GetDownwardsReelingForce();
+                reelingForce = Parent.Stats.DownwardsReelingForce;
             }
             else if (reelingDirection > 0)
             {
-                reelingForce = Parent.MovementComponent.GetUpwardsReelingForce();
+                reelingForce = Parent.Stats.UpwardsReelingForce;
             }
 
             Vector2 reelingVector = reelingForce * directionToHookPoint;

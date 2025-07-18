@@ -15,7 +15,7 @@ namespace BigBallBoiGame.Scripts.Gun.Shotgun.State {
             GD.Print("Reloading");
 
             Parent.Reload();
-            reloadTimer = Parent.GunComponent.GetReloadTime();
+            reloadTimer = Parent.Stats.ReloadTime;
 
         }
 

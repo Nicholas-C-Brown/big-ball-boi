@@ -1,0 +1,16 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://dcfpa2j53qx8e"]
+
+[ext_resource type="Texture2D" uid="uid://dw8n4tmi4brly" path="res://Sprites/Weapons/shotgun.png" id="1_biuxs"]
+[ext_resource type="Script" uid="uid://bjntd4tivio4b" path="res://Scripts/Gun/GunStatsResource.cs" id="1_p1tw6"]
+
+[resource]
+script = ExtResource("1_p1tw6")
+Texture = ExtResource("1_biuxs")
+SpriteOffset = Vector2(3, 0)
+ClipSize = 2
+ReloadTime = 3.0
+KnockbackForce = 800.0
+Damage = 5.0
+BulletCount = 14
+BulletSpeed = 700.0
+BulletSpreadDegrees = 20.0

@@ -26,7 +26,7 @@ namespace BigBallBoiGame.Scripts.Player.State
             HandleSpriteFlip();
 
             float absoluteHorizontalVelocity = Mathf.Abs(Parent.LinearVelocity.X);
-            float maxMovementSpeed = Parent.MovementComponent.GetMaxMovementSpeed();
+            float maxMovementSpeed = Parent.Stats.MaxAppliedMovementSpeed;
             float speedScaleFactor = absoluteHorizontalVelocity / maxMovementSpeed;
 
             float minimumMoveAnimationSpeed = 0.6f;

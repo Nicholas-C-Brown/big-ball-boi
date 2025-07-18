@@ -12,9 +12,6 @@ namespace BigBallBoiGame.Scripts.GrapplingHook.State
         [Export] GrapplingHookState attachedState;
         [Export] GrapplingHookState retractState;
 
-        [Export] private float hookDistance = 300;
-        [Export] private float extendSpeed = 5;
-
         private Vector2 targetPosition;
 
         public override void Enter()
@@ -26,7 +23,7 @@ namespace BigBallBoiGame.Scripts.GrapplingHook.State
         {
 
             Parent.LookAt(targetPosition);
-            Parent.HookPoint.Position += Vector2.Right * extendSpeed;
+            Parent.HookPoint.Position += Vector2.Right * Parent.Stats.ExtendSpeed;
             Parent.HookLine.Points = [Parent.Position, Parent.HookPoint.Position];
 
             if(Parent.HookPoint.HasOverlappingBodies())
@@ -34,7 +31,7 @@ namespace BigBallBoiGame.Scripts.GrapplingHook.State
                 return IsHooked() ? attachedState : retractState;
             }
 
-            if (Parent.HookPoint.Position.Length() >= hookDistance)
+            if (Parent.HookPoint.Position.Length() >= Parent.Stats.HookLength)
             {
                 return retractState;
             }
@@ -56,7 +53,7 @@ namespace BigBallBoiGame.Scripts.GrapplingHook.State
         {
             Vector2 mousePosition = Parent.GetGlobalMousePosition();
             Vector2 aimDirection = (mousePosition - Parent.GlobalPosition).Normalized();
-            targetPosition = Parent.GlobalPosition + (aimDirection * hookDistance);
+            targetPosition = Parent.GlobalPosition + (aimDirection * Parent.Stats.HookLength);
         }
 
         private bool IsHooked()

@@ -1,0 +1,12 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://hsnr2vqe0u5e"]
+
+[ext_resource type="Script" uid="uid://bm0rmpqn2lqmb" path="res://Scripts/Player/PlayerStatsResource.cs" id="1_1kv1s"]
+
+[resource]
+script = ExtResource("1_1kv1s")
+JumpStrength = 1000.0
+MovementForce = 850.0
+MaxAppliedMovementSpeed = 200.0
+HookedMovementForce = 600.0
+UpwardsReelingForce = 2300.0
+DownwardsReelingForce = 200.0

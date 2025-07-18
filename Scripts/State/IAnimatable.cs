@@ -3,7 +3,7 @@ using System;
 
 namespace BigBallBoiGame
 {
-    public interface IAnimatableState
+    public interface IAnimatable
     {
 
         AnimatedSprite2D AnimationComponent { get; }

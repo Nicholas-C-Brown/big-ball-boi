@@ -1,0 +1,9 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://dxul1kn50p2fy"]
+
+[ext_resource type="Script" uid="uid://kalavn87lymn" path="res://Scripts/Grappling Hook/GrapplingHookStatsResource.cs" id="1_2xdev"]
+
+[resource]
+script = ExtResource("1_2xdev")
+HookLength = 300.0
+ExtendSpeed = 5.0
+RetractSpeed = 20.0

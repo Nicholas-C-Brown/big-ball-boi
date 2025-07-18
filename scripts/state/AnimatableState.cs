@@ -4,7 +4,7 @@ using System;
 namespace BigBallBoiGame.State
 {
 
-    public abstract partial class AnimatableState<T> : State<T> where T: Node, IAnimatableState 
+    public abstract partial class AnimatableState<T> : State<T> where T: Node, IAnimatable 
 
     {
 
