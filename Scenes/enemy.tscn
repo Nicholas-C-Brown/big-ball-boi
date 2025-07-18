@@ -1,3 +1,8 @@
-[gd_scene format=3 uid="uid://bd1p5w1n0258"]
+[gd_scene load_steps=2 format=3 uid="uid://bd1p5w1n0258"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ne65n"]
 
 [node name="Enemy" type="RigidBody2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_ne65n")
